@@ -1,7 +1,13 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { ActionFunction, LinksFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useFetcher } from "@remix-run/react";
 import { Player } from "@remotion/player";
 import { LogoAnimation } from "~/remotion/logo-animation";
 import stylesHref from "../styles/index.css";
+import invariant from "tiny-invariant";
+import { renderVideo } from "~/lib/render-video.server";
+import { useCallback, useEffect, useState } from "react";
+import { usePollRenderStatus } from "~/hooks/use-poll-render-status";
 
 const FPS = 30;
 
@@ -9,7 +15,65 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesHref }];
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  console.log("start rendering");
+
+  const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
+  invariant(serveUrl, "REMOTION_AWS_SERVE_URL is not set");
+
+  const renderProps = {
+    serveUrl,
+    compositionId: "LogoAnimation",
+    inputProps: { noData: "empty" },
+    videoName: `logo-animation-${Date.now()}.mp4`,
+  };
+
+  const renderData = await renderVideo(renderProps);
+
+  return json({ ok: true, renderData });
+};
+
 export default function Index() {
+  const [renderId, setRenderId] = useState<string | undefined>();
+  const fetcher = useFetcher();
+
+  const onClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      fetcher.submit({}, { method: "post" });
+    },
+    [fetcher]
+  );
+
+  useEffect(() => {
+    if (fetcher.data?.renderData?.renderId) {
+      setRenderId(fetcher.data?.renderData?.renderId);
+    }
+  }, [fetcher.data]);
+
+  const resetRenderIds = useCallback(() => {
+    setRenderId(undefined);
+  }, []);
+
+  const { renderProgress, isPolling, videoUrls, error } = usePollRenderStatus({
+    renderIds: [renderId],
+    shouldStartPolling: !!renderId,
+    onFinishedPolling: resetRenderIds,
+  });
+
+  if (error) {
+    renderId && resetRenderIds();
+    return (
+      <div>
+        <h3>Well this is unfortunate but there is an error...</h3>
+        {
+          //@ts-ignore
+          error[0].stack || JSON.stringify(error, null, 2)
+        }
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
@@ -18,7 +82,48 @@ export default function Index() {
         fontWeight: 700,
       }}
     >
-      <h1>Welcome to Remix + Remotion template !</h1>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1>Welcome to Remix + Remotion template !</h1>
+        <div>
+          {!isPolling && !videoUrls && (
+            <div>
+              <h3>Do you want to download this video ?</h3>
+              <fetcher.Form method="post">
+                <button type="submit" onClick={onClick}>
+                  Render a video
+                </button>
+              </fetcher.Form>
+            </div>
+          )}
+          {isPolling && renderProgress && (
+            <div>
+              <h3>Rendering...</h3>
+              <div>{`${Math.round(renderProgress * 100)}%`}</div>
+            </div>
+          )}
+          {videoUrls?.map((videoUrl, index) => {
+            if (!videoUrl) return null;
+            return (
+              <a
+                key={`file-${index}`}
+                href={videoUrl || ""}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="file-download-link"
+              >
+                {`Download ${index + 1}`}
+              </a>
+            );
+          })}
+        </div>
+      </div>
       <div
         style={{
           backgroundColor: "black",

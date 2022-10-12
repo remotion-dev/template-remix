@@ -9,12 +9,16 @@ import { RemotionLineToPerson } from "./components/remotion-logo/remotion-line-t
 import { RemotionNotAnimated } from "./components/remotion-logo/remotion-not-animated";
 import { RemotionPersonToFusion } from "./components/remotion-logo/remotion-person-to-fusion";
 import { LogoAnimationSequence } from "./components/logo-apparition-sequence";
+import { useEffect } from "react";
 import { loadFonts } from "./load-fonts";
-loadFonts();
 
 export const LogoAnimation = () => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
+
+  useEffect(() => {
+    loadFonts();
+  });
 
   const progress = spring({
     fps,
