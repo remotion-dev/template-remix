@@ -22,11 +22,7 @@ export default function Index() {
       <div
         style={{
           backgroundColor: "black",
-          padding: 12,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          padding: 48,
         }}
       >
         <Player
@@ -37,7 +33,9 @@ export default function Index() {
           compositionHeight={1080}
           controls
           style={{
-            width: "80%",
+            marginInline: "auto",
+            width: "80vw",
+            height: "max(600px, 80vh)",
           }}
         />
       </div>
