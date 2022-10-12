@@ -1,7 +1,7 @@
 import type { LinksFunction } from "@remix-run/node";
 import { Player } from "@remotion/player";
 import { LogoAnimation } from "~/remotion/logo-animation";
-import stylesHref from "./index.css";
+import stylesHref from "../styles/index.css";
 
 const FPS = 30;
 

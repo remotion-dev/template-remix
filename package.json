@@ -4,13 +4,19 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build",
-    "remotion:start": "remotion preview app/remotion/index.tsx"
+    "remotion:start": "remotion preview app/remotion/index.tsx",
+    "remotion:build": "remotion render app/remotion/index.tsx LogoAnimation out/logo-animation.mp4",
+    "remotion:upgrade": "remotion upgrade",
+    "remotion:lambda:build": "npx remotion lambda render [[Function name]] LogoAnimation out/logo-animation-lambda-rendered.mp4",
+    "remotion:lambda:function:deploy": "npx remotion lambda functions deploy",
+    "remotion:lambda:site:update": "npx remotion lambda sites create app/remotion/index.tsx --site-name=remotion-remix-example"
   },
   "dependencies": {
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
     "@remix-run/serve": "^1.7.2",
     "@remotion/cli": "^3.2.25",
+    "@remotion/lambda": "^3.2.30",
     "@remotion/player": "^3.2.25",
     "@remotion/renderer": "^3.2.25",
     "react": "^18.2.0",
