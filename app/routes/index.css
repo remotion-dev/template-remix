@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Founders Grotesk';
+  font-weight: 700;
+  src: url('/fonts/FoundersGrotesk-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GTPlanar';
+  src: url('./fonts/gt-planar-black.woff2') format('woff2');
+}
