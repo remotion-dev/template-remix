@@ -13,7 +13,6 @@ export const renderVideo = async ({
   inputProps: any;
   videoName: string;
 }) => {
-  console.log("in renderVideo");
   const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
   invariant(functionName, "REMOTION_AWS_FUNCTION_NAME is not set");
 

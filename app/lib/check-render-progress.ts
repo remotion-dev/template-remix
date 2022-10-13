@@ -1,4 +1,6 @@
-export const checkProgress = async (
+import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
+
+export const checkRenderProgress = async (
   fetcher: any,
   renderIds: string[]
 ): Promise<
@@ -6,7 +8,7 @@ export const checkProgress = async (
     renderId: string;
     done: boolean;
     overallProgress: number;
-    errors: { (key: string): string }[] | undefined;
+    errors: EnhancedErrorInfo[];
   }[]
 > => {
   await fetcher.submit(

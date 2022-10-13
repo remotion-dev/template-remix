@@ -8,6 +8,7 @@ import invariant from "tiny-invariant";
 import { renderVideo } from "~/lib/render-video.server";
 import { useCallback, useEffect, useState } from "react";
 import { usePollRenderStatus } from "~/hooks/use-poll-render-status";
+import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
 
 const FPS = 30;
 
@@ -16,8 +17,6 @@ export const links: LinksFunction = () => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log("start rendering");
-
   const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
   invariant(serveUrl, "REMOTION_AWS_SERVE_URL is not set");
 
@@ -35,6 +34,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   const [renderId, setRenderId] = useState<string | undefined>();
+  const [renderErrors, setRenderErrors] = useState<EnhancedErrorInfo[]>([]);
   const fetcher = useFetcher();
 
   const onClick = useCallback(
@@ -55,21 +55,27 @@ export default function Index() {
     setRenderId(undefined);
   }, []);
 
-  const { renderProgress, isPolling, videoUrls, error } = usePollRenderStatus({
+  const onError = useCallback(
+    (e: EnhancedErrorInfo[]) => {
+      resetRenderIds();
+      setRenderErrors(e);
+      console.error(e);
+    },
+    [resetRenderIds]
+  );
+
+  const { renderProgress, isPolling, videoUrls } = usePollRenderStatus({
     renderIds: [renderId],
     shouldStartPolling: !!renderId,
-    onFinishedPolling: resetRenderIds,
+    onComplete: resetRenderIds,
+    onError: onError,
   });
 
-  if (error) {
-    renderId && resetRenderIds();
+  if (renderErrors.length > 0) {
     return (
       <div>
         <h3>Well this is unfortunate but there is an error...</h3>
-        {
-          //@ts-ignore
-          error[0].stack || JSON.stringify(error, null, 2)
-        }
+        <span>{renderErrors.join(", ")}</span>
       </div>
     );
   }
@@ -102,10 +108,12 @@ export default function Index() {
               </fetcher.Form>
             </div>
           )}
-          {isPolling && renderProgress && (
+          {isPolling && (
             <div>
               <h3>Rendering...</h3>
-              <div>{`${Math.round(renderProgress * 100)}%`}</div>
+              {renderProgress && (
+                <div>{`${Math.round(renderProgress * 100)}%`}</div>
+              )}
             </div>
           )}
           {videoUrls?.map((videoUrl, index) => {
