@@ -10,6 +10,11 @@ It lets you render a video from a remix app with Amazon Lambda.
 
 Check the online version here : [https://remotion-remix-template.vercel.app/](https://remotion-remix-template.vercel.app/)
 
+Here is the ouput video : 
+
+https://user-images.githubusercontent.com/11575645/195991193-f854448a-cdf1-4d61-acb8-ffae44d53b3b.mp4
+
+
 ## Getting started
 Copy the `.env.example` file to `.env` and fill in the values. You can get the values needed by following the Remotion lambda setup guide : [Remotion docs](https://www.remotion.dev/docs/lambda/setup).
 
