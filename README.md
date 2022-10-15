@@ -1,53 +1,31 @@
-# Welcome to Remix!
+# Remotion Remix template!
 
 - [Remix Docs](https://remix.run/docs)
+- [Remotion Docs](https://remotion.dev/docs)
 
-## Development
+## This template :
 
-From your terminal:
+This  is a Remix app that using `@remotion/player` and `@remotion/lambda`.
+It lets you render a video from a remix app with Amazon Lambda.
 
-```sh
-npm run dev
-```
+Check the online version here : [https://remotion-remix-template.vercel.app/](https://remotion-remix-template.vercel.app/)
 
-This starts your app in development mode, rebuilding assets on file changes.
+## Getting started
+Copy the `.env.example` file to `.env` and fill in the values. You can get the values needed by following the Remotion lambda setup guide : [Remotion docs](https://www.remotion.dev/docs/lambda/setup).
 
-## Deployment
+Change the lambda function name and site name in `package.json` accordingly to allow yourself to use the scripts.
 
-First, build your app for production:
+## Scripts
 
-```sh
-npm run build
-```
+### Remix
+- `yarn build` - build the app
+- `yarn dev` - start the app in development mode
+- `yarn start` - start the app in production mode
 
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
-
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+### Remotion
+- `yarn remotion:start`: start the remotion preview
+- `yarn remotion:build`: render the example video
+- `yarn remotion:upgrade`: upgrade all Remotion packages
+- `yarn remotion:lambda:build`: render the video with lambda
+- `yarn remotion:lambda:function:deploy`: deploy the AWS lambda function
+- `yarn remotion:lambda:site:update`: update the AWS lambda site
