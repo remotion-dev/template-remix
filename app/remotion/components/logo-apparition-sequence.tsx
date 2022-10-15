@@ -1,8 +1,5 @@
-import { useCurrentFrame } from "remotion";
 import { useVideoConfig } from "remotion";
-import { spring } from "remotion";
-
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, spring, useCurrentFrame } from "remotion";
 import { PlusSymbol } from "./plus-symbol";
 import { GlowingR } from "./remix-logo/glowing-r";
 import { RemixPersonToFusion } from "./remix-logo/remix-person-to-fusion";

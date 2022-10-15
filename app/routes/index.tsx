@@ -1,14 +1,14 @@
 import type { ActionFunction, LinksFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useFetcher } from "@remix-run/react";
+import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
 import { Player } from "@remotion/player";
+import { useCallback, useEffect, useState } from "react";
+import invariant from "tiny-invariant";
+import { usePollRenderStatus } from "~/hooks/use-poll-render-status";
+import { renderVideo } from "~/lib/render-video.server";
 import { LogoAnimation } from "~/remotion/logo-animation";
 import stylesHref from "../styles/index.css";
-import invariant from "tiny-invariant";
-import { renderVideo } from "~/lib/render-video.server";
-import { useCallback, useEffect, useState } from "react";
-import { usePollRenderStatus } from "~/hooks/use-poll-render-status";
-import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
 
 const FPS = 30;
 
@@ -17,13 +17,17 @@ export const links: LinksFunction = () => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const personalizedName = formData.get("personalizedName") as string;
+  invariant(personalizedName, "personalizedName is not set");
+
   const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
   invariant(serveUrl, "REMOTION_AWS_SERVE_URL is not set");
 
   const renderProps = {
     serveUrl,
     compositionId: "LogoAnimation",
-    inputProps: { noData: "empty" },
+    inputProps: { personalizedName },
     videoName: `logo-animation-${Date.now()}.mp4`,
   };
 
@@ -35,14 +39,23 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Index() {
   const [renderId, setRenderId] = useState<string | undefined>();
   const [renderErrors, setRenderErrors] = useState<EnhancedErrorInfo[]>([]);
+  const [personalizedName, setPersonalizedName] = useState("you");
   const fetcher = useFetcher();
+
+  const onNameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setPersonalizedName(e.target.value),
+    []
+  );
 
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault();
-      fetcher.submit({}, { method: "post" });
+      const data = new FormData();
+      data.append("personalizedName", personalizedName);
+      fetcher.submit(data, { method: "post" });
     },
-    [fetcher]
+    [fetcher, personalizedName]
   );
 
   useEffect(() => {
@@ -100,8 +113,13 @@ export default function Index() {
         <div>
           {!isPolling && !videoUrls && (
             <div>
-              <h3>Do you want to download this video ?</h3>
+              <h3>Enter your name for a custom video</h3>
               <fetcher.Form method="post">
+                <input
+                  type="text"
+                  onChange={onNameChange}
+                  value={personalizedName}
+                />
                 <button type="submit" onClick={onClick}>
                   Render a video
                 </button>
@@ -140,6 +158,7 @@ export default function Index() {
       >
         <Player
           component={LogoAnimation}
+          inputProps={{ personalizedName }}
           durationInFrames={FPS * 7}
           fps={FPS}
           compositionWidth={1920}

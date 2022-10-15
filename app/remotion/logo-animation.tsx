@@ -1,6 +1,15 @@
-import { AbsoluteFill, interpolate, Series, useVideoConfig } from "remotion";
-import { spring, useCurrentFrame } from "remotion";
-import { Sequence } from "remotion";
+import { useEffect } from "react";
+import {
+  AbsoluteFill,
+  interpolate,
+  Sequence,
+  Series,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import { LogoAnimationSequence } from "./components/logo-apparition-sequence";
+import { PersonalizedName } from "./components/personalized-name";
 import { PlusSymbol } from "./components/plus-symbol";
 import { RemixLineToPerson } from "./components/remix-logo/remix-line-to-person";
 import { RemixNotAnimated } from "./components/remix-logo/remix-not-animated";
@@ -8,11 +17,13 @@ import { RemixPersonToFusion } from "./components/remix-logo/remix-person-to-fus
 import { RemotionLineToPerson } from "./components/remotion-logo/remotion-line-to-person";
 import { RemotionNotAnimated } from "./components/remotion-logo/remotion-not-animated";
 import { RemotionPersonToFusion } from "./components/remotion-logo/remotion-person-to-fusion";
-import { LogoAnimationSequence } from "./components/logo-apparition-sequence";
-import { useEffect } from "react";
 import { loadFonts } from "./load-fonts";
 
-export const LogoAnimation = () => {
+interface Props {
+  personalizedName: string;
+}
+
+export const LogoAnimation = ({ personalizedName }: Props) => {
   const { fps } = useVideoConfig();
   const frame = useCurrentFrame();
 
@@ -32,6 +43,14 @@ export const LogoAnimation = () => {
   const remotionXOffset = interpolate(progress, [0, 1], [900, 0]);
   const plusYOffset = interpolate(progress, [0, 1], [900, 0]);
 
+  const opacity = spring({
+    fps,
+    frame: frame - fps * 1.5,
+    config: {
+      damping: 200,
+    },
+  });
+
   return (
     <AbsoluteFill
       style={{
@@ -40,9 +59,18 @@ export const LogoAnimation = () => {
     >
       <Series>
         <Series.Sequence durationInFrames={fps * 1.5}>
-          <RemixNotAnimated horizontalOffset={remixXOffset} />
-          <RemotionNotAnimated horizontalOffset={remotionXOffset} />
-          <PlusSymbol verticalOffset={plusYOffset} />
+          <PersonalizedName personalizedName={personalizedName} />
+        </Series.Sequence>
+        <Series.Sequence durationInFrames={fps * 1.5}>
+          <AbsoluteFill
+            style={{
+              opacity,
+            }}
+          >
+            <RemixNotAnimated horizontalOffset={remixXOffset} />
+            <RemotionNotAnimated horizontalOffset={remotionXOffset} />
+            <PlusSymbol verticalOffset={plusYOffset} />
+          </AbsoluteFill>
         </Series.Sequence>
         <Series.Sequence durationInFrames={fps * 1.5}>
           <RemixLineToPerson horizontalOffset={remixXOffset} />
@@ -55,7 +83,7 @@ export const LogoAnimation = () => {
           <PlusSymbol />
         </Series.Sequence>
       </Series>
-      <Sequence from={fps * 3.5} durationInFrames={fps * 3}>
+      <Sequence from={fps * 5.5} durationInFrames={fps * 4}>
         <LogoAnimationSequence />
       </Sequence>
     </AbsoluteFill>
