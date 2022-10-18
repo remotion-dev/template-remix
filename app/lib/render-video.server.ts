@@ -26,6 +26,10 @@ export const renderVideo = async ({
 		inputProps,
 		codec: 'h264',
 		outName,
+		downloadBehavior: {
+			type: 'download',
+			fileName: outName,
+		},
 	});
 
 	return {
