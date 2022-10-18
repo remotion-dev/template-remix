@@ -3,6 +3,7 @@ import { json } from '@remix-run/node';
 import type { AwsRegion } from '@remotion/lambda';
 import { getRenderProgress } from '@remotion/lambda/client';
 import invariant from 'tiny-invariant';
+import type { RenderStatusResponse } from '~/lib/types';
 
 export const action: ActionFunction = async ({ request }) => {
 	const body = await request.formData();
@@ -20,7 +21,7 @@ export const action: ActionFunction = async ({ request }) => {
 	const bucketName = process.env.REMOTION_AWS_BUCKET_NAME;
 	invariant(bucketName, 'REMOTION_AWS_BUCKET_NAME is not defined');
 
-	const status = await Promise.all(
+	const status: RenderStatusResponse = await Promise.all(
 		renderIds.map(async (renderId) => {
 			const renderProgress = await getRenderProgress({
 				renderId: renderId,

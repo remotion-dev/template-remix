@@ -1,16 +1,10 @@
-import type { LambdaErrorInfo } from '@remotion/lambda';
+import type { FetcherWithComponents } from '@remix-run/react';
+import type { RenderStatusResponse } from './types';
 
 export const checkRenderProgress = async (
-	fetcher: any,
+	fetcher: FetcherWithComponents<RenderStatusResponse>,
 	renderIds: string[]
-): Promise<
-	{
-		renderId: string;
-		done: boolean;
-		overallProgress: number;
-		errors: LambdaErrorInfo[];
-	}[]
-> => {
+): Promise<RenderStatusResponse> => {
 	await fetcher.submit(
 		{ renderIds: JSON.stringify(renderIds) },
 		{
@@ -18,5 +12,5 @@ export const checkRenderProgress = async (
 			action: 'render-status',
 		}
 	);
-	return fetcher.data;
+	return fetcher.data as RenderStatusResponse;
 };

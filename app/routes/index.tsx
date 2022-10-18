@@ -1,11 +1,10 @@
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
-import type { LambdaErrorInfo } from '@remotion/lambda';
 import { Player } from '@remotion/player';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import invariant from 'tiny-invariant';
-import { usePollRenderStatus } from '~/hooks/use-poll-render-status';
+import { RenderProgress } from '~/components/RenderProgress';
 import { renderVideo } from '~/lib/render-video.server';
 import type { LogoAnimationProps } from '~/remotion/constants';
 import {
@@ -64,7 +63,6 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
 	const [renderId, setRenderId] = useState<string | undefined>();
-	const [renderErrors, setRenderErrors] = useState<LambdaErrorInfo[]>([]);
 	const [personalizedName, setPersonalizedName] = useState('you');
 	const fetcher = useFetcher();
 
@@ -94,41 +92,18 @@ export default function Index() {
 		setRenderId(undefined);
 	}, []);
 
-	const onError = useCallback(
-		(e: LambdaErrorInfo[]) => {
-			resetRenderIds();
-			setRenderErrors(e);
-			console.error(e);
-		},
-		[resetRenderIds]
-	);
-
-	const { renderProgress, isPolling, videoUrls } = usePollRenderStatus({
-		renderIds: [renderId],
-		shouldStartPolling: !!renderId,
-		onComplete: resetRenderIds,
-		onError,
-	});
-
 	const inputProps: LogoAnimationProps = useMemo(() => {
 		return { personalizedName };
 	}, [personalizedName]);
-
-	if (renderErrors.length > 0) {
-		return (
-			<div>
-				<h3>Well this is unfortunate but there is an error...</h3>
-				<span>{renderErrors.join(', ')}</span>
-			</div>
-		);
-	}
 
 	return (
 		<div style={container}>
 			<div style={content}>
 				<h1>Welcome to Remix + Remotion template!</h1>
 				<div>
-					{!isPolling && (
+					{renderId ? (
+						<RenderProgress renderId={renderId} reset={resetRenderIds} />
+					) : (
 						<div>
 							<h3>Enter your name for a custom video</h3>
 							<fetcher.Form method="post">
@@ -143,27 +118,6 @@ export default function Index() {
 							</fetcher.Form>
 						</div>
 					)}
-					{isPolling && (
-						<div>
-							<h3>Rendering...</h3>
-							{renderProgress && (
-								<div>{`${Math.round(renderProgress * 100)}%`}</div>
-							)}
-						</div>
-					)}
-					{videoUrls.map((videoUrl, index) => {
-						return (
-							<a
-								key={`file-${videoUrl}`}
-								href={videoUrl}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="file-download-link"
-							>
-								Download {index + 1}
-							</a>
-						);
-					})}
 				</div>
 			</div>
 			<div style={playerContainer}>

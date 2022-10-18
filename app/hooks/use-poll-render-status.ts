@@ -1,6 +1,7 @@
 import { useFetcher } from '@remix-run/react';
 import type { LambdaErrorInfo } from '@remotion/lambda';
 import { useCallback, useEffect, useState } from 'react';
+import type { RenderStatusResponse } from '~/lib/types';
 import { checkRenderProgress } from '../lib/check-render-progress';
 import { useInterval } from './use-interval';
 
@@ -23,14 +24,7 @@ export function usePollRenderStatus({
 		undefined
 	);
 
-	const renderStatusFetcher = useFetcher<
-		{
-			renderId: string;
-			done: boolean;
-			overallProgress: number;
-			outputFile: string | null;
-		}[]
-	>();
+	const renderStatusFetcher = useFetcher<RenderStatusResponse>();
 
 	const [isPolling, setIsPolling] = useState(false);
 
