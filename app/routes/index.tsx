@@ -36,7 +36,6 @@ const playerContainer: React.CSSProperties = {
 const playerStyle: React.CSSProperties = {
 	marginInline: 'auto',
 	width: '80vw',
-	height: 'max(600px, 80vh)',
 };
 
 export const action: ActionFunction = async ({ request }) => {
