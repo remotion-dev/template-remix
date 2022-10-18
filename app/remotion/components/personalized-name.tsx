@@ -5,12 +5,9 @@ import {
 	useCurrentFrame,
 	useVideoConfig,
 } from 'remotion';
+import type { LogoAnimationProps } from '../constants';
 
-interface Props {
-	personalizedName: string;
-}
-
-export const PersonalizedName = ({ personalizedName }: Props) => {
+export const PersonalizedName = ({ personalizedName }: LogoAnimationProps) => {
 	const { fps } = useVideoConfig();
 	const frame = useCurrentFrame();
 	const progress = spring({

@@ -6,36 +6,32 @@ export const renderVideo = async ({
 	serveUrl,
 	compositionId,
 	inputProps,
-	videoName,
+	outName,
 }: {
 	serveUrl: string;
 	compositionId: string;
-	inputProps: any;
-	videoName: string;
+	inputProps: unknown;
+	outName: string;
 }) => {
 	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
 	invariant(functionName, 'REMOTION_AWS_FUNCTION_NAME is not set');
 
-	const awsRegion = (process.env.REMOTION_AWS_REGION ||
-		'us-east-1') as AwsRegion;
+	const region = (process.env.REMOTION_AWS_REGION || 'us-east-1') as AwsRegion;
 
 	const { renderId, bucketName } = await renderMediaOnLambda({
-		region: awsRegion,
+		region,
 		functionName,
 		serveUrl,
 		composition: compositionId,
 		inputProps,
 		codec: 'h264',
-		imageFormat: 'jpeg',
-		maxRetries: 1,
-		privacy: 'public',
-		outName: videoName,
+		outName,
 	});
 
 	return {
 		renderId,
 		bucketName,
 		functionName,
-		region: awsRegion,
+		region,
 	};
 };

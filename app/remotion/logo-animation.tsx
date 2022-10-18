@@ -17,13 +17,10 @@ import { RemixPersonToFusion } from './components/remix-logo/remix-person-to-fus
 import { RemotionLineToPerson } from './components/remotion-logo/remotion-line-to-person';
 import { RemotionNotAnimated } from './components/remotion-logo/remotion-not-animated';
 import { RemotionPersonToFusion } from './components/remotion-logo/remotion-person-to-fusion';
+import type { LogoAnimationProps } from './constants';
 import { loadFonts } from './load-fonts';
 
-interface Props {
-	personalizedName: string;
-}
-
-export const LogoAnimation = ({ personalizedName }: Props) => {
+export const LogoAnimation = ({ personalizedName }: LogoAnimationProps) => {
 	const { fps } = useVideoConfig();
 	const frame = useCurrentFrame();
 
