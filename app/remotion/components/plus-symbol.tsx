@@ -16,7 +16,7 @@ export const PlusSymbol = ({ verticalOffset = 0 }: Props) => {
 			<span
 				style={{
 					fontSize: 130,
-					fontFamily: 'GTPlanar,sans-serif',
+					fontFamily: 'sans-serif',
 				}}
 			>
 				+
