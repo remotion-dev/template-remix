@@ -1,4 +1,4 @@
-import type { ActionFunction } from '@remix-run/node';
+import type { ActionFunction, LinksFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
 import { Player } from '@remotion/player';
@@ -15,27 +15,31 @@ import {
 	COMPOSITION_WIDTH,
 } from '../remotion/constants';
 import { LogoAnimation } from '../remotion/logo-animation';
+import stylesHref from '../styles/layout.css';
+
+export const links: LinksFunction = () => {
+	return [{ rel: 'stylesheet', href: stylesHref }];
+};
 
 const container: React.CSSProperties = {
-	fontFamily: 'Founders Grotesk, sans-serif',
+	fontFamily: 'sans-serif',
 	lineHeight: '1.4',
-	fontWeight: 700,
+	width: '100%',
+	margin: 'auto',
+	maxWidth: 1200,
 };
 
 const content: React.CSSProperties = {
-	display: 'flex',
-	flexDirection: 'row',
-	justifyContent: 'space-between',
-	alignItems: 'center',
+	width: 400,
+	padding: 24,
 };
 
 const playerContainer: React.CSSProperties = {
-	padding: 48,
+	flex: 1,
 };
 
 const playerStyle: React.CSSProperties = {
-	marginInline: 'auto',
-	width: '80vw',
+	width: '100%',
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -96,29 +100,7 @@ export default function Index() {
 	}, [personalizedName]);
 
 	return (
-		<div style={container}>
-			<div style={content}>
-				<h1>Welcome to Remix + Remotion template!</h1>
-				<div>
-					{renderId ? (
-						<RenderProgress renderId={renderId} reset={resetRenderIds} />
-					) : (
-						<div>
-							<h3>Enter your name for a custom video</h3>
-							<fetcher.Form method="post">
-								<input
-									type="text"
-									onChange={onNameChange}
-									value={personalizedName}
-								/>
-								<button type="submit" onClick={onClick}>
-									Render a video
-								</button>
-							</fetcher.Form>
-						</div>
-					)}
-				</div>
-			</div>
+		<div style={container} className="container">
 			<div style={playerContainer}>
 				<Player
 					component={LogoAnimation}
@@ -130,6 +112,29 @@ export default function Index() {
 					controls
 					style={playerStyle}
 				/>
+			</div>
+			<div style={content}>
+				<h1>Welcome to the Remotion Remix template!</h1>
+				<div>
+					{renderId ? (
+						<RenderProgress renderId={renderId} reset={resetRenderIds} />
+					) : (
+						<div>
+							<p>Enter your name for a custom video:</p>
+							<fetcher.Form method="post">
+								<input
+									type="text"
+									onChange={onNameChange}
+									value={personalizedName}
+								/>
+								<br></br>
+								<button type="submit" onClick={onClick}>
+									Render a video
+								</button>
+							</fetcher.Form>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);
