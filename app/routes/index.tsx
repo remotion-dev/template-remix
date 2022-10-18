@@ -7,10 +7,13 @@ import { useCallback, useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import { usePollRenderStatus } from "~/hooks/use-poll-render-status";
 import { renderVideo } from "~/lib/render-video.server";
+import {
+  COMPOSITION_FPS,
+  COMPOSITION_HEIGHT,
+  COMPOSITION_WIDTH,
+} from "~/remotion/constants";
 import { LogoAnimation } from "~/remotion/logo-animation";
 import stylesHref from "../styles/index.css";
-
-const FPS = 30;
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesHref }];
@@ -109,7 +112,7 @@ export default function Index() {
           alignItems: "center",
         }}
       >
-        <h1>Welcome to Remix + Remotion template !</h1>
+        <h1>Welcome to Remix + Remotion template!</h1>
         <div>
           {!isPolling && !videoUrls && (
             <div>
@@ -159,10 +162,10 @@ export default function Index() {
         <Player
           component={LogoAnimation}
           inputProps={{ personalizedName }}
-          durationInFrames={FPS * 7}
-          fps={FPS}
-          compositionWidth={1920}
-          compositionHeight={1080}
+          durationInFrames={COMPOSITION_FPS * 7}
+          fps={COMPOSITION_FPS}
+          compositionWidth={COMPOSITION_WIDTH}
+          compositionHeight={COMPOSITION_HEIGHT}
           controls
           style={{
             marginInline: "auto",

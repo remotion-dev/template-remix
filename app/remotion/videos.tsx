@@ -1,7 +1,10 @@
 import { Composition } from "remotion";
+import {
+  COMPOSITION_FPS,
+  COMPOSITION_HEIGHT,
+  COMPOSITION_WIDTH,
+} from "./constants";
 import { LogoAnimation } from "./logo-animation";
-
-const FPS = 30;
 
 export const RemotionVideo = () => {
   return (
@@ -9,10 +12,10 @@ export const RemotionVideo = () => {
       <Composition
         id="LogoAnimation"
         component={LogoAnimation}
-        durationInFrames={FPS * 7}
-        fps={FPS}
-        width={1920}
-        height={1080}
+        durationInFrames={COMPOSITION_FPS * 7}
+        fps={COMPOSITION_FPS}
+        width={COMPOSITION_WIDTH}
+        height={COMPOSITION_HEIGHT}
       />
     </>
   );
