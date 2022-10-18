@@ -1,7 +1,7 @@
 import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import type { AwsRegion } from '@remotion/lambda';
-import { getRenderProgress } from '@remotion/lambda';
+import { getRenderProgress } from '@remotion/lambda/client';
 import invariant from 'tiny-invariant';
 
 export const action: ActionFunction = async ({ request }) => {

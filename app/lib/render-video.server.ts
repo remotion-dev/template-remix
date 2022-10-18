@@ -1,5 +1,5 @@
 import type { AwsRegion } from '@remotion/lambda';
-import { renderMediaOnLambda } from '@remotion/lambda';
+import { renderMediaOnLambda } from '@remotion/lambda/client';
 import invariant from 'tiny-invariant';
 
 export const renderVideo = async ({
