@@ -1,4 +1,4 @@
-import type { ActionFunction, LinksFunction } from '@remix-run/node';
+import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
 import type { LambdaErrorInfo } from '@remotion/lambda';
@@ -129,7 +129,7 @@ export default function Index() {
 			<div style={content}>
 				<h1>Welcome to Remix + Remotion template!</h1>
 				<div>
-					{!isPolling && !videoUrls && (
+					{!isPolling && (
 						<div>
 							<h3>Enter your name for a custom video</h3>
 							<fetcher.Form method="post">
@@ -161,7 +161,7 @@ export default function Index() {
 								rel="noopener noreferrer"
 								className="file-download-link"
 							>
-								Download ${index + 1}
+								Download {index + 1}
 							</a>
 						);
 					})}
