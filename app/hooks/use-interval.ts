@@ -16,7 +16,6 @@ export function useInterval({
 
 	useEffect(() => {
 		function tick() {
-			console.log('tick');
 			if (!savedCallback.current) {
 				return;
 			}
