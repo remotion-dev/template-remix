@@ -7,11 +7,8 @@ import type { RenderStatusResponse } from '~/lib/types';
 
 export const action: ActionFunction = async ({ request }) => {
 	const body = await request.formData();
-	//@ts-ignore
-	const renderIds = JSON.parse(body.get('renderIds')) as
-		| Array<string>
-		| undefined;
-	invariant(renderIds, 'renderIds are not defined');
+	const renderId = body.get('renderId') as string;
+	invariant(renderId, 'renderId is not defined');
 
 	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
 	invariant(functionName, 'REMOTION_AWS_FUNCTION_NAME is not set');
@@ -21,18 +18,20 @@ export const action: ActionFunction = async ({ request }) => {
 	const bucketName = process.env.REMOTION_AWS_BUCKET_NAME;
 	invariant(bucketName, 'REMOTION_AWS_BUCKET_NAME is not defined');
 
-	const status: RenderStatusResponse = await Promise.all(
-		renderIds.map(async (renderId) => {
-			const renderProgress = await getRenderProgress({
-				renderId: renderId,
-				bucketName,
-				functionName,
-				region: region,
-			});
-			const { done, overallProgress, errors, outputFile } = renderProgress;
-			return { renderId, done, overallProgress, errors, outputFile };
-		})
-	);
+	const renderProgress = await getRenderProgress({
+		renderId: renderId,
+		bucketName,
+		functionName,
+		region: region,
+	});
+	const { done, overallProgress, errors, outputFile } = renderProgress;
+	const status: RenderStatusResponse = {
+		renderId,
+		done,
+		overallProgress,
+		errors,
+		outputFile,
+	};
 
 	return json(status);
 };

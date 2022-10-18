@@ -6,20 +6,16 @@ import { checkRenderProgress } from '../lib/check-render-progress';
 import { useInterval } from './use-interval';
 
 export function usePollRenderStatus({
-	renderIds,
+	renderId,
 	shouldStartPolling,
 	onComplete,
 	onError,
 }: {
-	renderIds: Array<string | undefined>;
+	renderId: string;
 	shouldStartPolling: boolean;
 	onComplete: () => void;
 	onError: (e: LambdaErrorInfo[]) => void;
 }) {
-	const filteredRenderIds = renderIds.filter(
-		(e) => !!e && typeof e === 'string'
-	) as Array<string>;
-
 	const [renderProgress, setRenderProgress] = useState<number | undefined>(
 		undefined
 	);
@@ -29,23 +25,17 @@ export function usePollRenderStatus({
 	const [isPolling, setIsPolling] = useState(false);
 
 	const pollingFunction = useCallback(async () => {
-		const progress = await checkRenderProgress(
-			renderStatusFetcher,
-			filteredRenderIds
-		);
+		const progress = await checkRenderProgress(renderStatusFetcher, renderId);
 
-		const errors = [...progress.map((e) => e.errors)].flat();
+		const errors = progress.errors;
 		if (errors.length > 0) {
 			setIsPolling(false);
 			onError(errors);
 			return;
 		}
 
-		setRenderProgress(
-			progress.reduce((acc, curr) => acc + curr.overallProgress, 0) /
-				progress.length
-		);
-	}, [renderStatusFetcher, filteredRenderIds, onError]);
+		setRenderProgress(progress.overallProgress);
+	}, [renderStatusFetcher, renderId, onError]);
 
 	useInterval({
 		callback: pollingFunction,
@@ -66,15 +56,13 @@ export function usePollRenderStatus({
 		}
 	}, [isPolling, renderProgress, shouldStartPolling, onComplete]);
 
-	const videoUrls = renderStatusFetcher.data
-		? (renderStatusFetcher.data
-				.map((render) => render.outputFile)
-				.filter((r) => r !== null) as string[])
-		: [];
+	const videoUrl = renderStatusFetcher.data
+		? renderStatusFetcher.data.outputFile
+		: null;
 
 	return {
 		renderProgress,
 		isPolling,
-		videoUrls,
+		videoUrl,
 	};
 }

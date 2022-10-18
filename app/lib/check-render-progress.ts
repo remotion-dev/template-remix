@@ -3,10 +3,10 @@ import type { RenderStatusResponse } from './types';
 
 export const checkRenderProgress = async (
 	fetcher: FetcherWithComponents<RenderStatusResponse>,
-	renderIds: string[]
+	renderId: string
 ): Promise<RenderStatusResponse> => {
 	await fetcher.submit(
-		{ renderIds: JSON.stringify(renderIds) },
+		{ renderId: renderId },
 		{
 			method: 'post',
 			action: 'render-status',

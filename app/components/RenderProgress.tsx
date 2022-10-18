@@ -19,8 +19,8 @@ export const RenderProgress = ({ renderId, reset }: Props) => {
 		[reset]
 	);
 
-	const { renderProgress, videoUrls } = usePollRenderStatus({
-		renderIds: [renderId],
+	const { renderProgress, videoUrl } = usePollRenderStatus({
+		renderId,
 		shouldStartPolling: !!renderId,
 		onComplete: reset,
 		onError,
@@ -35,22 +35,18 @@ export const RenderProgress = ({ renderId, reset }: Props) => {
 		);
 	}
 
-	if (videoUrls) {
+	if (videoUrl) {
 		return (
 			<div>
-				{videoUrls.map((videoUrl, index) => {
-					return (
-						<a
-							key={`file-${videoUrl}`}
-							href={videoUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="file-download-link"
-						>
-							Download {index + 1}
-						</a>
-					);
-				})}
+				<a
+					key={`file-${videoUrl}`}
+					href={videoUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="file-download-link"
+				>
+					Download Video
+				</a>
 			</div>
 		);
 	}

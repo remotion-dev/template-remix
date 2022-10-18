@@ -6,4 +6,4 @@ export type RenderStatusResponse = {
 	overallProgress: number;
 	outputFile: string | null;
 	errors: LambdaErrorInfo[];
-}[];
+};
