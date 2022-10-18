@@ -15,9 +15,6 @@
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"paths": {
-			"~/*": ["./app/*"]
-		},
 		// Remix takes care of building everything in `remix build`.
 		"noEmit": true,
 		"skipLibCheck": true

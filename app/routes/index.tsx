@@ -4,17 +4,17 @@ import { useFetcher } from '@remix-run/react';
 import { Player } from '@remotion/player';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import invariant from 'tiny-invariant';
-import { RenderProgress } from '~/components/RenderProgress';
-import { renderVideo } from '~/lib/render-video.server';
-import type { LogoAnimationProps } from '~/remotion/constants';
+import { RenderProgress } from '../components/RenderProgress';
+import { renderVideo } from '../lib/render-video.server';
+import type { LogoAnimationProps } from '../remotion/constants';
 import {
 	COMPOSITION_DURATION_IN_FRAMES,
 	COMPOSITION_FPS,
 	COMPOSITION_HEIGHT,
 	COMPOSITION_ID,
 	COMPOSITION_WIDTH,
-} from '~/remotion/constants';
-import { LogoAnimation } from '~/remotion/logo-animation';
+} from '../remotion/constants';
+import { LogoAnimation } from '../remotion/logo-animation';
 
 const container: React.CSSProperties = {
 	fontFamily: 'Founders Grotesk, sans-serif',

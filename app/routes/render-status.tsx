@@ -3,7 +3,7 @@ import { json } from '@remix-run/node';
 import type { AwsRegion } from '@remotion/lambda';
 import { getRenderProgress } from '@remotion/lambda/client';
 import invariant from 'tiny-invariant';
-import type { RenderStatusResponse } from '~/lib/types';
+import type { RenderStatusResponse } from '../lib/types';
 
 export const action: ActionFunction = async ({ request }) => {
 	const body = await request.formData();

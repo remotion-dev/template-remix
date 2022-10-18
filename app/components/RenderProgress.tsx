@@ -1,6 +1,6 @@
 import type { LambdaErrorInfo } from '@remotion/lambda';
 import { useCallback, useState } from 'react';
-import { usePollRenderStatus } from '~/hooks/use-poll-render-status';
+import { usePollRenderStatus } from '../hooks/use-poll-render-status';
 
 interface Props {
 	renderId: string;

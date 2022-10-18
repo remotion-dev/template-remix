@@ -1,7 +1,7 @@
 import { useFetcher } from '@remix-run/react';
 import type { LambdaErrorInfo } from '@remotion/lambda';
 import { useCallback, useEffect, useState } from 'react';
-import type { RenderStatusResponse } from '~/lib/types';
+import type { RenderStatusResponse } from '../lib/types';
 import { checkRenderProgress } from '../lib/check-render-progress';
 import { useInterval } from './use-interval';
 
