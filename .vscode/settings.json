@@ -4,6 +4,5 @@
 	"editor.codeActionsOnSave": {
 		"source.organizeImports": false,
 		"source.fixAll": true
-	},
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	}
 }
