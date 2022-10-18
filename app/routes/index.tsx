@@ -16,11 +16,6 @@ import {
 	COMPOSITION_WIDTH,
 } from '~/remotion/constants';
 import { LogoAnimation } from '~/remotion/logo-animation';
-import stylesHref from '../styles/index.css';
-
-export const links: LinksFunction = () => {
-	return [{ rel: 'stylesheet', href: stylesHref }];
-};
 
 const container: React.CSSProperties = {
 	fontFamily: 'Founders Grotesk, sans-serif',

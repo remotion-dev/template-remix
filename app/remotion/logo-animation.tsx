@@ -26,7 +26,7 @@ export const LogoAnimation = ({ personalizedName }: LogoAnimationProps) => {
 
 	useEffect(() => {
 		loadFonts();
-	});
+	}, []);
 
 	const progress = spring({
 		fps,
