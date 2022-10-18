@@ -12,6 +12,9 @@
 		"allowJs": true,
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"paths": {
 			"~/*": ["./app/*"]
 		},
