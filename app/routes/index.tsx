@@ -1,15 +1,18 @@
 import type { ActionFunction, LinksFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
-import type { EnhancedErrorInfo } from '@remotion/lambda/dist/functions/helpers/write-lambda-error';
+import type { LambdaErrorInfo } from '@remotion/lambda';
 import { Player } from '@remotion/player';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import invariant from 'tiny-invariant';
 import { usePollRenderStatus } from '~/hooks/use-poll-render-status';
 import { renderVideo } from '~/lib/render-video.server';
+import type { LogoAnimationProps } from '~/remotion/constants';
 import {
+	COMPOSITION_DURATION_IN_FRAMES,
 	COMPOSITION_FPS,
 	COMPOSITION_HEIGHT,
+	COMPOSITION_ID,
 	COMPOSITION_WIDTH,
 } from '~/remotion/constants';
 import { LogoAnimation } from '~/remotion/logo-animation';
@@ -17,6 +20,19 @@ import stylesHref from '../styles/index.css';
 
 export const links: LinksFunction = () => {
 	return [{ rel: 'stylesheet', href: stylesHref }];
+};
+
+const container: React.CSSProperties = {
+	fontFamily: 'Founders Grotesk, sans-serif',
+	lineHeight: '1.4',
+	fontWeight: 700,
+};
+
+const content: React.CSSProperties = {
+	display: 'flex',
+	flexDirection: 'row',
+	justifyContent: 'space-between',
+	alignItems: 'center',
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -27,21 +43,23 @@ export const action: ActionFunction = async ({ request }) => {
 	const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
 	invariant(serveUrl, 'REMOTION_AWS_SERVE_URL is not set');
 
-	const renderProps = {
-		serveUrl,
-		compositionId: 'LogoAnimation',
-		inputProps: { personalizedName },
-		videoName: `logo-animation-${Date.now()}.mp4`,
+	const inputProps: LogoAnimationProps = {
+		personalizedName,
 	};
 
-	const renderData = await renderVideo(renderProps);
+	const renderData = await renderVideo({
+		serveUrl,
+		compositionId: COMPOSITION_ID,
+		inputProps,
+		outName: `logo-animation-${Date.now()}.mp4`,
+	});
 
 	return json({ ok: true, renderData });
 };
 
 export default function Index() {
 	const [renderId, setRenderId] = useState<string | undefined>();
-	const [renderErrors, setRenderErrors] = useState<EnhancedErrorInfo[]>([]);
+	const [renderErrors, setRenderErrors] = useState<LambdaErrorInfo[]>([]);
 	const [personalizedName, setPersonalizedName] = useState('you');
 	const fetcher = useFetcher();
 
@@ -72,7 +90,7 @@ export default function Index() {
 	}, []);
 
 	const onError = useCallback(
-		(e: EnhancedErrorInfo[]) => {
+		(e: LambdaErrorInfo[]) => {
 			resetRenderIds();
 			setRenderErrors(e);
 			console.error(e);
@@ -84,8 +102,12 @@ export default function Index() {
 		renderIds: [renderId],
 		shouldStartPolling: !!renderId,
 		onComplete: resetRenderIds,
-		onError: onError,
+		onError,
 	});
+
+	const inputProps: LogoAnimationProps = useMemo(() => {
+		return { personalizedName };
+	}, [personalizedName]);
 
 	if (renderErrors.length > 0) {
 		return (
@@ -97,21 +119,8 @@ export default function Index() {
 	}
 
 	return (
-		<div
-			style={{
-				fontFamily: 'Founders Grotesk, sans-serif',
-				lineHeight: '1.4',
-				fontWeight: 700,
-			}}
-		>
-			<div
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					alignItems: 'center',
-				}}
-			>
+		<div style={container}>
+			<div style={content}>
 				<h1>Welcome to Remix + Remotion template!</h1>
 				<div>
 					{!isPolling && !videoUrls && (
@@ -161,8 +170,8 @@ export default function Index() {
 			>
 				<Player
 					component={LogoAnimation}
-					inputProps={{ personalizedName }}
-					durationInFrames={COMPOSITION_FPS * 7}
+					inputProps={inputProps}
+					durationInFrames={COMPOSITION_DURATION_IN_FRAMES}
 					fps={COMPOSITION_FPS}
 					compositionWidth={COMPOSITION_WIDTH}
 					compositionHeight={COMPOSITION_HEIGHT}

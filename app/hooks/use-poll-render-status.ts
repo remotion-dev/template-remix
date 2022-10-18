@@ -1,5 +1,5 @@
 import { useFetcher } from '@remix-run/react';
-import type { RenderProgress } from '@remotion/lambda';
+import type { LambdaErrorInfo } from '@remotion/lambda';
 import { useCallback, useEffect, useState } from 'react';
 import { checkRenderProgress } from '../lib/check-render-progress';
 import { useInterval } from './use-interval';
@@ -12,8 +12,8 @@ export function usePollRenderStatus({
 }: {
 	renderIds: Array<string | undefined>;
 	shouldStartPolling: boolean;
-	onComplete?: () => void;
-	onError: (e: RenderProgress['errors']) => void;
+	onComplete: () => void;
+	onError: (e: LambdaErrorInfo[]) => void;
 }) {
 	const filteredRenderIds = renderIds.filter(
 		(e) => !!e && typeof e === 'string'
@@ -64,9 +64,10 @@ export function usePollRenderStatus({
 			setIsPolling(true);
 			return;
 		}
+
 		if (renderProgress === 1 && isPolling) {
 			setIsPolling(false);
-			onComplete && onComplete();
+			onComplete();
 			return;
 		}
 	}, [isPolling, renderProgress, shouldStartPolling, onComplete]);
