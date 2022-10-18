@@ -35,6 +35,17 @@ const content: React.CSSProperties = {
 	alignItems: 'center',
 };
 
+const playerContainer: React.CSSProperties = {
+	backgroundColor: 'black',
+	padding: 48,
+};
+
+const playerStyle: React.CSSProperties = {
+	marginInline: 'auto',
+	width: '80vw',
+	height: 'max(600px, 80vh)',
+};
+
 export const action: ActionFunction = async ({ request }) => {
 	const formData = await request.formData();
 	const personalizedName = formData.get('personalizedName') as string;
@@ -161,12 +172,7 @@ export default function Index() {
 					})}
 				</div>
 			</div>
-			<div
-				style={{
-					backgroundColor: 'black',
-					padding: 48,
-				}}
-			>
+			<div style={playerContainer}>
 				<Player
 					component={LogoAnimation}
 					inputProps={inputProps}
@@ -175,11 +181,7 @@ export default function Index() {
 					compositionWidth={COMPOSITION_WIDTH}
 					compositionHeight={COMPOSITION_HEIGHT}
 					controls
-					style={{
-						marginInline: 'auto',
-						width: '80vw',
-						height: 'max(600px, 80vh)',
-					}}
+					style={playerStyle}
 				/>
 			</div>
 		</div>
