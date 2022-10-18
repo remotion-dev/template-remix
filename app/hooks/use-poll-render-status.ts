@@ -1,83 +1,83 @@
-import { useCallback, useEffect, useState } from "react";
-import { useFetcher } from "@remix-run/react";
-import { checkRenderProgress } from "../lib/check-render-progress";
-import { useInterval } from "./use-interval";
-import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
+import { useFetcher } from '@remix-run/react';
+import type { RenderProgress } from '@remotion/lambda';
+import { useCallback, useEffect, useState } from 'react';
+import { checkRenderProgress } from '../lib/check-render-progress';
+import { useInterval } from './use-interval';
 
 export function usePollRenderStatus({
-  renderIds,
-  shouldStartPolling,
-  onComplete,
-  onError,
+	renderIds,
+	shouldStartPolling,
+	onComplete,
+	onError,
 }: {
-  renderIds: Array<string | undefined>;
-  shouldStartPolling: boolean;
-  onComplete?: () => void;
-  onError?: (e: EnhancedErrorInfo[]) => void;
+	renderIds: Array<string | undefined>;
+	shouldStartPolling: boolean;
+	onComplete?: () => void;
+	onError: (e: RenderProgress['errors']) => void;
 }) {
-  const filteredRenderIds = renderIds.filter(
-    (e) => !!e && typeof e === "string"
-  ) as Array<string>;
+	const filteredRenderIds = renderIds.filter(
+		(e) => !!e && typeof e === 'string'
+	) as Array<string>;
 
-  const [renderProgress, setRenderProgress] = useState<number | undefined>(
-    undefined
-  );
+	const [renderProgress, setRenderProgress] = useState<number | undefined>(
+		undefined
+	);
 
-  const renderStatusFetcher = useFetcher<
-    {
-      renderId: string;
-      done: boolean;
-      overallProgress: number;
-      outputFile: string | null;
-    }[]
-  >();
+	const renderStatusFetcher = useFetcher<
+		{
+			renderId: string;
+			done: boolean;
+			overallProgress: number;
+			outputFile: string | null;
+		}[]
+	>();
 
-  const [isPolling, setIsPolling] = useState(false);
+	const [isPolling, setIsPolling] = useState(false);
 
-  const pollingFunction = useCallback(async () => {
-    const progress = await checkRenderProgress(
-      renderStatusFetcher,
-      filteredRenderIds
-    );
+	const pollingFunction = useCallback(async () => {
+		const progress = await checkRenderProgress(
+			renderStatusFetcher,
+			filteredRenderIds
+		);
 
-    const errors = [...progress.map((e) => e.errors)].flat();
-    if (errors.length > 0) {
-      setIsPolling(false);
-      onError && onError(errors);
-      return;
-    }
+		const errors = [...progress.map((e) => e.errors)].flat();
+		if (errors.length > 0) {
+			setIsPolling(false);
+			onError(errors);
+			return;
+		}
 
-    setRenderProgress(
-      progress.reduce((acc, curr) => acc + curr.overallProgress, 0) /
-        progress.length
-    );
-  }, [renderStatusFetcher, filteredRenderIds, onError]);
+		setRenderProgress(
+			progress.reduce((acc, curr) => acc + curr.overallProgress, 0) /
+				progress.length
+		);
+	}, [renderStatusFetcher, filteredRenderIds, onError]);
 
-  useInterval({
-    callback: pollingFunction,
-    intervalTime: 1000,
-    isOn: isPolling,
-  });
+	useInterval({
+		callback: pollingFunction,
+		intervalTime: 1000,
+		isOn: isPolling,
+	});
 
-  useEffect(() => {
-    if (!isPolling && shouldStartPolling) {
-      setIsPolling(true);
-      return;
-    }
-    if (renderProgress === 1 && isPolling) {
-      setIsPolling(false);
-      onComplete && onComplete();
-      return;
-    }
-  }, [isPolling, renderProgress, shouldStartPolling, onComplete]);
+	useEffect(() => {
+		if (!isPolling && shouldStartPolling) {
+			setIsPolling(true);
+			return;
+		}
+		if (renderProgress === 1 && isPolling) {
+			setIsPolling(false);
+			onComplete && onComplete();
+			return;
+		}
+	}, [isPolling, renderProgress, shouldStartPolling, onComplete]);
 
-  const videoUrls = renderStatusFetcher.data?.map(
-    (render) => render.outputFile
-  );
+	const videoUrls = renderStatusFetcher.data?.map(
+		(render) => render.outputFile
+	);
 
-  return {
-    renderProgress,
-    isPolling,
-    videoUrls,
-  };
+	return {
+		renderProgress,
+		isPolling,
+		videoUrls,
+	};
 }

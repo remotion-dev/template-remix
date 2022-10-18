@@ -1,10 +1,10 @@
-import {AbsoluteFill} from 'remotion';
+import { AbsoluteFill } from 'remotion';
 
 interface Props {
 	verticalOffset?: number;
 }
 
-export const PlusSymbol = ({verticalOffset = 0}: Props) => {
+export const PlusSymbol = ({ verticalOffset = 0 }: Props) => {
 	return (
 		<AbsoluteFill
 			style={{

@@ -1,4 +1,4 @@
-import {R} from './r';
+import { R } from './r';
 
 interface Props {
 	letterValue: string;

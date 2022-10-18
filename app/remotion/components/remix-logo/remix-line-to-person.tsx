@@ -1,16 +1,18 @@
-import {interpolate} from 'remotion';
-import {spring} from 'remotion';
-import {useCurrentFrame} from 'remotion';
-import {useVideoConfig} from 'remotion';
-import {AbsoluteFill} from 'remotion';
-import {RemixLetter} from './remix-letter';
+import {
+	AbsoluteFill,
+	interpolate,
+	spring,
+	useCurrentFrame,
+	useVideoConfig,
+} from 'remotion';
+import { RemixLetter } from './remix-letter';
 
 interface Props {
 	horizontalOffset?: number;
 }
 
-export const RemixLineToPerson = ({horizontalOffset}: Props) => {
-	const {fps} = useVideoConfig();
+export const RemixLineToPerson = ({ horizontalOffset }: Props) => {
+	const { fps } = useVideoConfig();
 	const frame = useCurrentFrame();
 
 	const progress = spring({

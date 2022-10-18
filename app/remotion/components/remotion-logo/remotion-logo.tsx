@@ -1,12 +1,12 @@
-import {AbsoluteFill} from 'remotion';
-import {Triangle} from './triangle';
+import { AbsoluteFill } from 'remotion';
+import { Triangle } from './triangle';
 
 interface Props {
 	size: number;
 	color?: string;
 }
 
-export const RemotionLogo = ({size, color = '#0B84F3'}: Props) => {
+export const RemotionLogo = ({ size, color = '#0B84F3' }: Props) => {
 	return (
 		<AbsoluteFill
 			style={{

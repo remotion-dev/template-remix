@@ -1,18 +1,18 @@
-import {AbsoluteFill} from 'remotion';
-import {E} from './e';
-import {FirstO} from './first-o';
-import {I} from './i';
-import {M} from './m';
-import {N} from './n';
-import {R} from './r';
-import {SecondO} from './second-o';
-import {T} from './t';
+import { AbsoluteFill } from 'remotion';
+import { E } from './e';
+import { FirstO } from './first-o';
+import { I } from './i';
+import { M } from './m';
+import { N } from './n';
+import { R } from './r';
+import { SecondO } from './second-o';
+import { T } from './t';
 
 interface Props {
 	horizontalOffset?: number;
 }
 
-export const RemotionNotAnimated = ({horizontalOffset = 0}: Props) => {
+export const RemotionNotAnimated = ({ horizontalOffset = 0 }: Props) => {
 	return (
 		<AbsoluteFill
 			style={{

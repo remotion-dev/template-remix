@@ -5,21 +5,21 @@ import {
 	useCurrentFrame,
 	useVideoConfig,
 } from 'remotion';
-import {E} from './e';
-import {FirstO} from './first-o';
-import {I} from './i';
-import {M} from './m';
-import {N} from './n';
-import {R} from './r';
-import {SecondO} from './second-o';
-import {T} from './t';
+import { E } from './e';
+import { FirstO } from './first-o';
+import { I } from './i';
+import { M } from './m';
+import { N } from './n';
+import { R } from './r';
+import { SecondO } from './second-o';
+import { T } from './t';
 
 interface Props {
 	horizontalOffset?: number;
 }
 
-export const RemotionLineToPerson = ({horizontalOffset = 0}: Props) => {
-	const {fps} = useVideoConfig();
+export const RemotionLineToPerson = ({ horizontalOffset = 0 }: Props) => {
+	const { fps } = useVideoConfig();
 	const frame = useCurrentFrame();
 
 	const progress = spring({

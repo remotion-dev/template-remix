@@ -1,16 +1,9 @@
 {
-  "extends": [
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node"
-  ],
-  "overrides": [
-    {
-      "files": [
-        "app/remotion/**/*.{ts,tsx}"
-      ],
-      "extends": [
-        "plugin:@remotion/recommended"
-      ]
-    }
-  ]
+	"extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
+	"overrides": [
+		{
+			"files": ["app/remotion/**/*.{ts,tsx}"],
+			"extends": ["plugin:@remotion/recommended"]
+		}
+	]
 }
