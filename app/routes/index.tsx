@@ -146,17 +146,16 @@ export default function Index() {
 							)}
 						</div>
 					)}
-					{videoUrls?.map((videoUrl, index) => {
-						if (!videoUrl) return null;
+					{videoUrls.map((videoUrl, index) => {
 						return (
 							<a
-								key={`file-${index}`}
-								href={videoUrl || ''}
+								key={`file-${videoUrl}`}
+								href={videoUrl}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="file-download-link"
 							>
-								{`Download ${index + 1}`}
+								Download ${index + 1}
 							</a>
 						);
 					})}

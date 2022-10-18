@@ -72,9 +72,11 @@ export function usePollRenderStatus({
 		}
 	}, [isPolling, renderProgress, shouldStartPolling, onComplete]);
 
-	const videoUrls = renderStatusFetcher.data?.map(
-		(render) => render.outputFile
-	);
+	const videoUrls = renderStatusFetcher.data
+		? (renderStatusFetcher.data
+				.map((render) => render.outputFile)
+				.filter((r) => r !== null) as string[])
+		: [];
 
 	return {
 		renderProgress,
