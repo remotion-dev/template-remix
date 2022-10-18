@@ -1,4 +1,4 @@
-import type { EnhancedErrorInfo } from '@remotion/lambda/dist/functions/helpers/write-lambda-error';
+import type { LambdaErrorInfo } from '@remotion/lambda';
 
 export const checkRenderProgress = async (
 	fetcher: any,
@@ -8,7 +8,7 @@ export const checkRenderProgress = async (
 		renderId: string;
 		done: boolean;
 		overallProgress: number;
-		errors: EnhancedErrorInfo[];
+		errors: LambdaErrorInfo[];
 	}[]
 > => {
 	await fetcher.submit(
