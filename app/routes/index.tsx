@@ -31,7 +31,6 @@ const content: React.CSSProperties = {
 };
 
 const playerContainer: React.CSSProperties = {
-	backgroundColor: 'black',
 	padding: 48,
 };
 
