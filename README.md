@@ -16,9 +16,12 @@ https://user-images.githubusercontent.com/11575645/195991193-f854448a-cdf1-4d61-
 
 ## Getting started
 
-Clone the repository and install dependencies using `npm i`.  
-If you prefer to use Yarn, run `yarn`.  
-If you prefer to use pnpm, run `pnpm i`.
+Clone the repository and install dependencies using `npm i`.
+
+> If you prefer to use Yarn, run `yarn`.  
+> If you prefer to use pnpm, run `pnpm i`.
+
+Run the example app using `npm run dev`.
 
 ## Set up rendering via AWS Lambda
 
