@@ -2430,46 +2430,46 @@
   dependencies:
     web-streams-polyfill "^3.1.1"
 
-"@remotion/bundler@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/bundler/-/bundler-3.2.32.tgz#45e2368a4dcc519e825424f2afdb3287e9ca12dc"
-  integrity sha512-lg9RRIE11hI+oUdPFLoSloIrGzdxVgU3fcc8BiAKezOlplypLjVyVAa8+p0oAuRFagojJQ3nNnoXHjRggRxKnA==
+"@remotion/bundler@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/bundler/-/bundler-3.2.33.tgz#79a9062658c0d910970010ac14145449ba3faa1f"
+  integrity sha512-DX3CTn9FjJ3lj3Q/m/aKvt1076PiYuI5FL9/CT6NIwmrDWWRDGYV7yxpqOknXqfwOuny6NY2m2tkCtbRRljyKw==
   dependencies:
     css-loader "5.2.7"
     esbuild "0.14.19"
     react-refresh "0.9.0"
-    remotion "3.2.32"
+    remotion "3.2.33"
     style-loader "2.0.0"
     webpack "5.74.0"
 
-"@remotion/cli@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/cli/-/cli-3.2.32.tgz#b8e32380e1adfc919774c6a0c15f7000a1e6f31e"
-  integrity sha512-fSZVXg/R4dI9aNLTwvkvoy6+MI1Rnr8pLSNiB88cZP1zaI+gZkqcRtG25J/3NEuot9BqOdt82rf1/r9uMrZbWQ==
+"@remotion/cli@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/cli/-/cli-3.2.33.tgz#338e2e8d6f1afaaf28664c6b1310c2aa8fca6a6e"
+  integrity sha512-a7nU8PBw2BtR1D9Yie8V3xDXc3gt4Vyiu3942xOGHOhFxbckZraxNJkKEecqy1szZczDzwwNFgNzKGqrNl4gQA==
   dependencies:
-    "@remotion/bundler" "3.2.32"
-    "@remotion/media-utils" "3.2.32"
-    "@remotion/player" "3.2.32"
-    "@remotion/renderer" "3.2.32"
+    "@remotion/bundler" "3.2.33"
+    "@remotion/media-utils" "3.2.33"
+    "@remotion/player" "3.2.33"
+    "@remotion/renderer" "3.2.33"
     better-opn "2.1.1"
     dotenv "9.0.2"
     memfs "3.4.3"
     minimist "1.2.6"
-    remotion "3.2.32"
+    remotion "3.2.33"
     semver "7.3.5"
     source-map "0.6.1"
 
-"@remotion/eslint-plugin@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/eslint-plugin/-/eslint-plugin-3.2.32.tgz#527923f7b094033d3c45d889601b70f539a37c0b"
-  integrity sha512-3XVEB0ikZO/aMk7oqhSZFmNSqlCcA1eRSFDNzhakGuV3vQkR9+X+BUD1CQrE5xI1tAggyv3GNmZoFhiz6m+73g==
+"@remotion/eslint-plugin@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/eslint-plugin/-/eslint-plugin-3.2.33.tgz#6934196f196f0bac050f0010b6cb37670037c8fd"
+  integrity sha512-mJ3Hy5uwodMerWyQwLbGYO6wsowrE7ea8acx8kRveYPGczhqcS5NqFGe7thw4WiPjPUr8bPyZstuWaG/kQalYg==
   dependencies:
     "@typescript-eslint/utils" "5.19.0"
 
-"@remotion/lambda@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/lambda/-/lambda-3.2.32.tgz#187c1e8fc1e06c82d599aa7b257decfa16f6cca7"
-  integrity sha512-BpsxEl3Q9d0SNUuPkKxbhugHA+LZRaAX+yNf8LO7PslzqeN5VYmBpjMEwwQZF9xr+JZ0sfxmqIyp5z4mEygl1w==
+"@remotion/lambda@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/lambda/-/lambda-3.2.33.tgz#f7f6c4a521e9ce1183a578dd01a625144c7f4ec6"
+  integrity sha512-E2kkvulK7otNSs+cyz3JzfLhCRc+p7kHmqqlGXFL1mOdME793Bpwpy4mKQoXI/M8ieKUefvrDVdmfnwQQ1dthQ==
   dependencies:
     "@aws-sdk/abort-controller" "3.55.0"
     "@aws-sdk/client-cloudwatch-logs" "3.58.0"
@@ -2479,35 +2479,35 @@
     "@aws-sdk/client-service-quotas" "3.58.0"
     "@aws-sdk/lib-storage" "3.58.0"
     "@aws-sdk/s3-request-presigner" "3.58.0"
-    "@remotion/bundler" "3.2.32"
-    "@remotion/cli" "3.2.32"
-    "@remotion/renderer" "3.2.32"
+    "@remotion/bundler" "3.2.33"
+    "@remotion/cli" "3.2.33"
+    "@remotion/renderer" "3.2.33"
     aws-policies "^1.0.1"
     mime-types "2.1.34"
-    remotion "3.2.32"
+    remotion "3.2.33"
 
-"@remotion/media-utils@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/media-utils/-/media-utils-3.2.32.tgz#958e4bee4bbcb7c9af80fdd9cd76bffc98c66e57"
-  integrity sha512-6xUl7ErRwuHd7Jp63mpMWI1liEH+JNH+R5s6M379J+xX0vaPRVL85XRanSE0ZREkX3NUG8cIMOt87yok8dJoVQ==
+"@remotion/media-utils@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/media-utils/-/media-utils-3.2.33.tgz#99ea56a48fe33a278198dee20258660b4b4fc605"
+  integrity sha512-2Dr3KX/nXgAupfakKDEYvvlBnbQ6+8oO5p0zykXmWPCeMsqpiZbg8Ck/z/q1WI5onwedv4/HvDTbHZyMfTccPg==
   dependencies:
-    remotion "3.2.32"
+    remotion "3.2.33"
 
-"@remotion/player@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/player/-/player-3.2.32.tgz#7f8151ee92e7e86b578a3f091db4562ee8ac5bb9"
-  integrity sha512-2a5SJKsnJtUn9Pz7M+ZgMM1VyzsH6upT4bje4bWgXjRwoBfuk+j2nWEI9BJy5UGRJOgK0sOo8JDrjS2zkNbTXQ==
+"@remotion/player@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/player/-/player-3.2.33.tgz#91506ff8c6b5c8ea1e9ba67ba864a0b1f578caff"
+  integrity sha512-OXNNcIHY56p4+4zaAjYUOXS0P8PEJJRYiHid+wvtuNnqZuNtyrPsKF8i9dNFqMuRqnkPLxmXOSpwujOrGdnpFw==
   dependencies:
-    remotion "3.2.32"
+    remotion "3.2.33"
 
-"@remotion/renderer@3.2.32":
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/@remotion/renderer/-/renderer-3.2.32.tgz#152a1938ce74f465d8bbb4bc72ff68ac92a63b35"
-  integrity sha512-AsT9Gmqeax8V4QSOx+Di4k2rKAMIuEzrzf791hFGBSt9wmTbIa3plMioB0qFPUOn97uaUrC3BHK43IaIF2nFeA==
+"@remotion/renderer@3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@remotion/renderer/-/renderer-3.2.33.tgz#0c5d0d558bb75f9522e3514ca31f3edee119b985"
+  integrity sha512-ijlbM+cjY5DY0aYw0uuLBBE0T7dwB+/53NQiDSA0uPCoPWTonD0R/oly6yokcgbGWDUHqF/5+svWP03tq1+5JQ==
   dependencies:
     execa "5.1.1"
     extract-zip "2.0.1"
-    remotion "3.2.32"
+    remotion "3.2.33"
     source-map "^0.8.0-beta.0"
     ws "8.7.0"
 
@@ -7511,10 +7511,10 @@ remark-rehype@^9.0.0:
     mdast-util-to-hast "^11.0.0"
     unified "^10.0.0"
 
-remotion@3.2.32:
-  version "3.2.32"
-  resolved "https://registry.yarnpkg.com/remotion/-/remotion-3.2.32.tgz#606e2b2bd2a20a5078ba2af6b10c885e57ed5643"
-  integrity sha512-2YCrhwkLYn+vihI9MBsBc2d8gXyxxFB3lVs1RqbGBer+I/ojI9MAqn6hjd7W7lXuUTfS3SAdrptME/vIoy0MQQ==
+remotion@3.2.33:
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/remotion/-/remotion-3.2.33.tgz#5bbf304d0311f27a36f185e779d810264202b962"
+  integrity sha512-N/BfG3DmLwdG0gGj0SdybRjGlGfhOy8SG0oyZQNeOnlHPEgv86uYUohrX0QUce1BPlVntuk9tQzFLOUhy9LeWA==
 
 repeat-element@^1.1.2:
   version "1.1.4"

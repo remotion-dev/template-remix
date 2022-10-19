@@ -1,11 +1,11 @@
-import type { AwsRegion, LambdaErrorInfo } from '@remotion/lambda';
+import type { AwsRegion, EnhancedErrorInfo } from '@remotion/lambda';
 
 export type StatusResponse = {
 	renderId: string;
 	done: boolean;
 	overallProgress: number;
 	outputFile: string | null;
-	errors: LambdaErrorInfo[];
+	errors: EnhancedErrorInfo[];
 };
 
 export type RenderResponse = {
