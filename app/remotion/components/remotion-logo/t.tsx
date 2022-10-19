@@ -1,5 +1,4 @@
-import {AbsoluteFill} from 'remotion';
-import React from 'react';
+import { AbsoluteFill } from 'remotion';
 
 const d1 = 'M1410 292L1410 509';
 

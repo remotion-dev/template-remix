@@ -1,41 +1,45 @@
-import type { AwsRegion } from "@remotion/lambda";
-import { renderMediaOnLambda } from "@remotion/lambda";
-import invariant from "tiny-invariant";
+import type { AwsRegion } from '@remotion/lambda';
+import { renderMediaOnLambda } from '@remotion/lambda/client';
+import type { RenderResponse } from './types';
 
 export const renderVideo = async ({
-  serveUrl,
-  compositionId,
-  inputProps,
-  videoName,
+	serveUrl,
+	composition,
+	inputProps,
+	outName,
 }: {
-  serveUrl: string;
-  compositionId: string;
-  inputProps: any;
-  videoName: string;
-}) => {
-  const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
-  invariant(functionName, "REMOTION_AWS_FUNCTION_NAME is not set");
+	serveUrl: string;
+	composition: string;
+	inputProps: unknown;
+	outName: string;
+}): Promise<RenderResponse> => {
+	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
+	if (!functionName) {
+		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
+	}
 
-  const awsRegion = (process.env.REMOTION_AWS_REGION ||
-    "us-east-1") as AwsRegion;
+	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
+	if (!region) {
+		throw new Error('REMOTION_AWS_REGION is not set');
+	}
 
-  const { renderId, bucketName } = await renderMediaOnLambda({
-    region: awsRegion,
-    functionName,
-    serveUrl,
-    composition: compositionId,
-    inputProps,
-    codec: "h264",
-    imageFormat: "jpeg",
-    maxRetries: 1,
-    privacy: "public",
-    outName: videoName,
-  });
+	const { renderId, bucketName } = await renderMediaOnLambda({
+		region,
+		functionName,
+		serveUrl,
+		composition,
+		inputProps,
+		codec: 'h264',
+		downloadBehavior: {
+			type: 'download',
+			fileName: outName,
+		},
+	});
 
-  return {
-    renderId,
-    bucketName,
-    functionName,
-    region: awsRegion,
-  };
+	return {
+		renderId,
+		bucketName,
+		functionName,
+		region,
+	};
 };

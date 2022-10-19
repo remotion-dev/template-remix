@@ -4,7 +4,7 @@ interface Props {
 	color?: string;
 }
 
-export const Triangle = ({size, opacity, color = '#0B84F3'}: Props) => {
+export const Triangle = ({ size, opacity, color = '#0B84F3' }: Props) => {
 	return (
 		<svg
 			width={size}

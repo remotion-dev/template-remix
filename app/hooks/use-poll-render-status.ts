@@ -1,83 +1,50 @@
-import { useCallback, useEffect, useState } from "react";
-import { useFetcher } from "@remix-run/react";
-import { checkRenderProgress } from "../lib/check-render-progress";
-import { useInterval } from "./use-interval";
-import type { EnhancedErrorInfo } from "@remotion/lambda/dist/functions/helpers/write-lambda-error";
+import { useFetcher } from '@remix-run/react';
+import { useCallback, useEffect, useMemo } from 'react';
+import type { StatusResponse } from '../lib/types';
 
 export function usePollRenderStatus({
-  renderIds,
-  shouldStartPolling,
-  onComplete,
-  onError,
+	renderId,
+	bucketName,
 }: {
-  renderIds: Array<string | undefined>;
-  shouldStartPolling: boolean;
-  onComplete?: () => void;
-  onError?: (e: EnhancedErrorInfo[]) => void;
+	renderId: string;
+	bucketName: string;
 }) {
-  const filteredRenderIds = renderIds.filter(
-    (e) => !!e && typeof e === "string"
-  ) as Array<string>;
+	const { submit, data } = useFetcher<StatusResponse>();
 
-  const [renderProgress, setRenderProgress] = useState<number | undefined>(
-    undefined
-  );
+	const checkRenderProgress = useCallback(() => {
+		submit(
+			{ renderId, bucketName },
+			{
+				method: 'post',
+				action: 'progress',
+			}
+		);
+	}, [submit, renderId, bucketName]);
 
-  const renderStatusFetcher = useFetcher<
-    {
-      renderId: string;
-      done: boolean;
-      overallProgress: number;
-      outputFile: string | null;
-    }[]
-  >();
+	useEffect(() => {
+		checkRenderProgress();
+	}, [checkRenderProgress]);
 
-  const [isPolling, setIsPolling] = useState(false);
+	const done = data?.done ?? false;
 
-  const pollingFunction = useCallback(async () => {
-    const progress = await checkRenderProgress(
-      renderStatusFetcher,
-      filteredRenderIds
-    );
+	useEffect(() => {
+		if (done) {
+			return;
+		}
+		const interval = setInterval(() => {
+			checkRenderProgress();
+		}, 2000);
 
-    const errors = [...progress.map((e) => e.errors)].flat();
-    if (errors.length > 0) {
-      setIsPolling(false);
-      onError && onError(errors);
-      return;
-    }
+		return () => {
+			clearInterval(interval);
+		};
+	}, [checkRenderProgress, done, renderId]);
 
-    setRenderProgress(
-      progress.reduce((acc, curr) => acc + curr.overallProgress, 0) /
-        progress.length
-    );
-  }, [renderStatusFetcher, filteredRenderIds, onError]);
+	const status = useMemo(() => {
+		return {
+			progress: data,
+		};
+	}, [data]);
 
-  useInterval({
-    callback: pollingFunction,
-    intervalTime: 1000,
-    isOn: isPolling,
-  });
-
-  useEffect(() => {
-    if (!isPolling && shouldStartPolling) {
-      setIsPolling(true);
-      return;
-    }
-    if (renderProgress === 1 && isPolling) {
-      setIsPolling(false);
-      onComplete && onComplete();
-      return;
-    }
-  }, [isPolling, renderProgress, shouldStartPolling, onComplete]);
-
-  const videoUrls = renderStatusFetcher.data?.map(
-    (render) => render.outputFile
-  );
-
-  return {
-    renderProgress,
-    isPolling,
-    videoUrls,
-  };
+	return status;
 }
