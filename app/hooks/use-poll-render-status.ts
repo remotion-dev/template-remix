@@ -35,14 +35,11 @@ export function usePollRenderStatus({
 		};
 	}, [checkRenderProgress, renderId]);
 
-	const videoUrl = data ? data.outputFile : null;
-
 	const status = useMemo(() => {
 		return {
-			videoUrl,
 			progress: data,
 		};
-	}, [data, videoUrl]);
+	}, [data]);
 
 	return status;
 }

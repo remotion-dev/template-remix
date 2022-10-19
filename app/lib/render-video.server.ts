@@ -22,6 +22,7 @@ export const renderVideo = async ({
 	if (!region) {
 		throw new Error('REMOTION_AWS_REGION is not set');
 	}
+
 	const { renderId, bucketName } = await renderMediaOnLambda({
 		region,
 		functionName,
@@ -29,7 +30,6 @@ export const renderVideo = async ({
 		composition,
 		inputProps,
 		codec: 'h264',
-		outName,
 		downloadBehavior: {
 			type: 'download',
 			fileName: outName,
