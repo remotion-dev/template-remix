@@ -5,12 +5,12 @@
 		"dev": "remix dev",
 		"start": "remix-serve build",
 		"test": "eslint app --ext ts,tsx,js,jsx && tsc",
-		"remotion:start": "remotion preview app/remotion/index.tsx",
-		"remotion:build": "remotion render app/remotion/index.tsx LogoAnimation out/logo-animation.mp4",
+		"remotion:preview": "remotion preview app/remotion/index.ts",
+		"remotion:render": "remotion render app/remotion/index.ts LogoAnimation out/logo-animation.mp4",
 		"remotion:upgrade": "remotion upgrade",
-		"remotion:lambda:build": "npx remotion lambda render [[Function name]] LogoAnimation out/logo-animation-lambda-rendered.mp4",
-		"remotion:lambda:function:deploy": "npx remotion lambda functions deploy",
-		"remotion:lambda:site:update": "npx remotion lambda sites create app/remotion/index.tsx --site-name=remotion-remix-example"
+		"remotion:renderlambda": "remotion lambda render remotion-remix-example LogoAnimation out/logo-animation-lambda-rendered.mp4",
+		"remotion:deployfunction": "remotion lambda functions deploy",
+		"remotion:deploysite": "remotion lambda sites create app/remotion/index.ts --site-name=remotion-remix-example"
 	},
 	"dependencies": {
 		"@remix-run/node": "^1.7.2",

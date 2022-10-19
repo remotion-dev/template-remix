@@ -3,10 +3,8 @@
 - [Remix Docs](https://remix.run/docs)
 - [Remotion Docs](https://remotion.dev/docs)
 
-## This template:
-
 This is a [Remix starter kit](https://remix.run/docs) with [Remotion](https://remotion.dev), [`@remotion/player`](https://remotion.dev/player) and [`@remotion/lambda`](https://remotion.dev/lambda) built in.  
-It lets you render a video from a remix app with Amazon Lambda.
+It lets you render a video from a Remix app with AWS Lambda.
 
 Check the online version here: [https://remotion-remix-template.vercel.app/](https://remotion-remix-template.vercel.app/)
 
@@ -16,49 +14,107 @@ https://user-images.githubusercontent.com/11575645/195991193-f854448a-cdf1-4d61-
 
 ## Getting started
 
-Clone the repository and install dependencies using `npm i`.
+Install dependencies using
 
-> If you prefer to use Yarn, run `yarn`.  
-> If you prefer to use pnpm, run `pnpm i`.
+<!-- create-video will replace this with the package manager specific command -->
 
-Run the example app using `npm run dev`.
+```
+npm install
+```
 
-## Set up rendering via AWS Lambda
+## Run the Remix app
 
-1. Follow the [Remotion Lambda setup guide](https://www.remotion.dev/docs/lambda/setup).
+Run the example app using:
+
+```
+npm run dev
+```
+
+## Edit the video
+
+Start the Remotion Preview (the editor interface) using:
+
+```
+npm run remotion:preview
+```
+
+## Render videos with AWS Lambda
+
+Follow these steps to set up video rendering:
+
+1. Follow the steps in [Remotion Lambda setup guide](https://www.remotion.dev/docs/lambda/setup).
 2. Rename the `.env.example` file to `.env`.
 3. Fill in the `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` values that you got from the first step.
-4. Run
+4. Run the following to generate a [Serve URL](https://www.remotion.dev/docs/terminology#serve-url) and use it to fill in the `REMOTION_AWS_SERVE_URL` value:
 
 ```
-npm run remotion:lambda:site:update
+npm run remotion:deploysite
 ```
 
-to generate a [Serve URL](https://www.remotion.dev/docs/terminology#serve-url) and use it to fill in the `REMOTION_AWS_SERVE_URL` value.
-
-5. Run
+5. Run the following [to deploy a Lambda function](https://www.remotion.dev/docs/lambda/cli/functions#deploy) and fill in the function name as `REMOTION_AWS_FUNCTION_NAME`.
 
 ```
-remotion:lambda:function:deploy
+npm run remotion:deployfunction
 ```
 
 6. Restart the Remix server.
 
-to deploy a Lambda function and fill in the function name as `REMOTION_AWS_FUNCTION_NAME`.
-
-## Scripts
+## Commands
 
 ### Remix
 
-- `yarn build` - build the app
-- `yarn dev` - start the app in development mode
-- `yarn start` - start the app in production mode
+Start the app in development mode:
+
+```
+npm run dev
+```
+
+Build the app:
+
+```
+npm run build
+```
+
+Start the app in production mode (after build is done):
+
+```
+npm start
+```
 
 ### Remotion
 
-- `yarn remotion:start`: start the remotion preview
-- `yarn remotion:build`: render the example video
-- `yarn remotion:upgrade`: upgrade all Remotion packages
-- `yarn remotion:lambda:build`: render the video with lambda
-- `yarn remotion:lambda:function:deploy`: deploy the AWS lambda function
-- `yarn remotion:lambda:site:update`: update the AWS lambda site
+Start the Remotion preview:
+
+```
+npm run remotion:preview
+```
+
+Render the example video localle:
+
+```
+npm run remotion:render
+```
+
+Upgrade all Remotion packages:
+
+```
+npm run remotion:upgrade
+```
+
+Render the example video on AWS Lambda:
+
+```
+npm run remotion:renderlambda
+```
+
+(Re-)Deploy the AWS lambda function:
+
+```
+npm run remotion:deployfunction
+```
+
+Deploy/Update the Remotion video on S3:
+
+```
+npm run remotion:deploysite
+```
