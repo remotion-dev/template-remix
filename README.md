@@ -1,7 +1,13 @@
-# Remotion Remix template!
+# Remotion + Remix Starter Kit
 
-- [Remix Docs](https://remix.run/docs)
-- [Remotion Docs](https://remotion.dev/docs)
+<p align="center">
+  <a href="https://github.com/remotion-dev/logo">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.gif">
+      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
+    </picture>
+  </a>
+</p>
 
 This is a [Remix starter kit](https://remix.run/docs) with [Remotion](https://remotion.dev), [`@remotion/player`](https://remotion.dev/player) and [`@remotion/lambda`](https://remotion.dev/lambda) built in.  
 It lets you render a video from a Remix app with AWS Lambda.
