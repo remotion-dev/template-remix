@@ -4,12 +4,12 @@ import type { RenderResponse } from './types';
 
 export const renderVideo = async ({
 	serveUrl,
-	compositionId,
+	composition,
 	inputProps,
 	outName,
 }: {
 	serveUrl: string;
-	compositionId: string;
+	composition: string;
 	inputProps: unknown;
 	outName: string;
 }): Promise<RenderResponse> => {
@@ -18,13 +18,15 @@ export const renderVideo = async ({
 		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
 	}
 
-	const region = (process.env.REMOTION_AWS_REGION || 'us-east-1') as AwsRegion;
-
+	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
+	if (!region) {
+		throw new Error('REMOTION_AWS_REGION is not set');
+	}
 	const { renderId, bucketName } = await renderMediaOnLambda({
 		region,
 		functionName,
 		serveUrl,
-		composition: compositionId,
+		composition: composition,
 		inputProps,
 		codec: 'h264',
 		outName,

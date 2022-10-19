@@ -62,7 +62,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 	const renderData: RenderResponse = await renderVideo({
 		serveUrl,
-		compositionId: COMPOSITION_ID,
+		composition: COMPOSITION_ID,
 		inputProps,
 		outName: `logo-animation-${Date.now()}.mp4`,
 	});
