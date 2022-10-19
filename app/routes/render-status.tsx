@@ -18,7 +18,10 @@ export const action: ActionFunction = async ({ request }) => {
 		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
 	}
 
-	const region = (process.env.REMOTION_AWS_REGION || 'us-east-1') as AwsRegion;
+	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
+	if (!region) {
+		throw new Error('REMOTION_AWS_REGION is not set');
+	}
 
 	const bucketName = process.env.REMOTION_AWS_BUCKET_NAME;
 	if (!bucketName) {
