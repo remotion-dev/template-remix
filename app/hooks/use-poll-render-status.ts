@@ -25,7 +25,12 @@ export function usePollRenderStatus({
 		checkRenderProgress();
 	}, [checkRenderProgress]);
 
+	const done = data?.done ?? false;
+
 	useEffect(() => {
+		if (done) {
+			return;
+		}
 		const interval = setInterval(() => {
 			checkRenderProgress();
 		}, 2000);
@@ -33,7 +38,7 @@ export function usePollRenderStatus({
 		return () => {
 			clearInterval(interval);
 		};
-	}, [checkRenderProgress, renderId]);
+	}, [checkRenderProgress, done, renderId]);
 
 	const status = useMemo(() => {
 		return {
