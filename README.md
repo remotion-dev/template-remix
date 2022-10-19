@@ -61,15 +61,13 @@ npm run remotion:deployfunction
 
 ## Commands
 
-### Remix
-
 Start the app in development mode:
 
 ```
 npm run dev
 ```
 
-Build the app:
+Build the app for production:
 
 ```
 npm run build
@@ -80,8 +78,6 @@ Start the app in production mode (after build is done):
 ```
 npm start
 ```
-
-### Remotion
 
 Start the Remotion preview:
 
@@ -118,3 +114,26 @@ Deploy/Update the Remotion video on S3:
 ```
 npm run remotion:deploysite
 ```
+
+## Upgrading Remotion
+
+When upgrading Remotion to a newer version, you will need to redeploy your function and update your site using the commands above.  
+Afterwards, update the environment variables `REMOTION_AWS_SERVE_URL` and `REMOTION_AWS_FUNCTION_NAME`.  
+If your functions or sites are already used in production, make sure to not overwrite them - [read here](https://www.remotion.dev/docs/lambda/upgrading) for more details about upgrading.
+
+## Docs
+
+Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).  
+See the [Remix Docs](https://remix.run/docs) to read about the framework.
+
+## Help
+
+Join the [Remotion Discord server](https://remotion.dev/discord) to chat with other Remotion builders.
+
+## Issues
+
+Found an issue with Remotion? [File an issue here](https://remotion.dev/issue).
+
+## License
+
+Notice that for some entities a Remotion company license is needed. Read [the terms here](https://remotion.dev/license).
