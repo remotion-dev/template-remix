@@ -35,10 +35,13 @@ const content: React.CSSProperties = {
 
 const playerContainer: React.CSSProperties = {
 	flex: 1,
+	aspectRatio: '16 / 9',
 };
 
 const playerStyle: React.CSSProperties = {
 	width: '100%',
+	height: 'auto',
+	aspectRatio: 16 / 9,
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -64,7 +67,7 @@ export const action: ActionFunction = async ({ request }) => {
 		serveUrl,
 		composition: COMPOSITION_ID,
 		inputProps,
-		outName: `logo-animation-${Date.now()}.mp4`,
+		outName: `logo-animation.mp4`,
 	});
 
 	return json(renderData);
