@@ -8,7 +8,7 @@ import {
 	useCurrentFrame,
 	useVideoConfig,
 } from 'remotion';
-import { LogoAnimationSequence } from './components/logo-apparition-sequence';
+import { LogoAnimationSequence } from './components/logo-animation-sequence';
 import { PersonalizedName } from './components/personalized-name';
 import { PlusSymbol } from './components/plus-symbol';
 import { RemixLineToPerson } from './components/remix-logo/remix-line-to-person';
