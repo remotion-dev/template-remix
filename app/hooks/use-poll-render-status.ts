@@ -10,7 +10,7 @@ export function usePollRenderStatus({ renderId }: { renderId: string }) {
 			{ renderId: renderId },
 			{
 				method: 'post',
-				action: 'render-status',
+				action: 'progress',
 			}
 		);
 	}, [submit, renderId]);
