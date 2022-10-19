@@ -10,7 +10,7 @@ import {
 
 export const meta: MetaFunction = () => ({
 	charset: 'utf-8',
-	title: 'Remotion X Remix',
+	title: 'Remotion + Remix',
 	viewport: 'width=device-width,initial-scale=1',
 });
 
