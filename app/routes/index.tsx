@@ -3,7 +3,7 @@ import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
 import { Player } from '@remotion/player';
 import React, { useCallback, useMemo, useState } from 'react';
-import { RenderProgress } from '../components/RenderProgress';
+import { RenderProgress } from '../components/render-progress';
 import { renderVideo } from '../lib/render-video.server';
 import type { LogoAnimationProps } from '../remotion/constants';
 import {
