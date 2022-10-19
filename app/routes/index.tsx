@@ -2,7 +2,7 @@ import type { ActionFunction, LinksFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
 import { Player } from '@remotion/player';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import invariant from 'tiny-invariant';
 import { RenderProgress } from '../components/RenderProgress';
 import { renderVideo } from '../lib/render-video.server';
@@ -16,6 +16,7 @@ import {
 } from '../remotion/constants';
 import { LogoAnimation } from '../remotion/logo-animation';
 import stylesHref from '../styles/layout.css';
+import type { RenderResponse } from '../lib/types';
 
 export const links: LinksFunction = () => {
 	return [{ rel: 'stylesheet', href: stylesHref }];
@@ -24,7 +25,6 @@ export const links: LinksFunction = () => {
 const container: React.CSSProperties = {
 	fontFamily: 'sans-serif',
 	lineHeight: '1.4',
-	width: '100%',
 	margin: 'auto',
 	maxWidth: 1200,
 };
@@ -54,20 +54,19 @@ export const action: ActionFunction = async ({ request }) => {
 		personalizedName,
 	};
 
-	const renderData = await renderVideo({
+	const renderData: RenderResponse = await renderVideo({
 		serveUrl,
 		compositionId: COMPOSITION_ID,
 		inputProps,
 		outName: `logo-animation-${Date.now()}.mp4`,
 	});
 
-	return json({ ok: true, renderData });
+	return json(renderData);
 };
 
 export default function Index() {
-	const [renderId, setRenderId] = useState<string | undefined>();
 	const [personalizedName, setPersonalizedName] = useState('you');
-	const fetcher = useFetcher();
+	const fetcher = useFetcher<RenderResponse>();
 
 	const onNameChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -84,16 +83,6 @@ export default function Index() {
 		},
 		[fetcher, personalizedName]
 	);
-
-	useEffect(() => {
-		if (fetcher.data?.renderData?.renderId) {
-			setRenderId(fetcher.data?.renderData?.renderId);
-		}
-	}, [fetcher.data]);
-
-	const resetRenderIds = useCallback(() => {
-		setRenderId(undefined);
-	}, []);
 
 	const inputProps: LogoAnimationProps = useMemo(() => {
 		return { personalizedName };
@@ -116,8 +105,10 @@ export default function Index() {
 			<div style={content}>
 				<h1>Welcome to the Remotion Remix template!</h1>
 				<div>
-					{renderId ? (
-						<RenderProgress renderId={renderId} reset={resetRenderIds} />
+					{fetcher.data ? (
+						<RenderProgress renderId={fetcher.data.renderId} />
+					) : fetcher.state === 'submitting' ? (
+						<div>Invoking</div>
 					) : (
 						<div>
 							<p>Enter your name for a custom video:</p>

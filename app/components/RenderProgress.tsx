@@ -1,36 +1,23 @@
-import type { LambdaErrorInfo } from '@remotion/lambda';
-import { useCallback, useState } from 'react';
-import { usePollRenderStatus } from '../hooks/use-poll-render-status';
+import { usePollRenderStatus } from 'app/hooks/use-poll-render-status';
 
 interface Props {
 	renderId: string;
-	reset: () => void;
 }
 
-export const RenderProgress = ({ renderId, reset }: Props) => {
-	const [renderErrors, setRenderErrors] = useState<LambdaErrorInfo[]>([]);
-
-	const onError = useCallback(
-		(e: LambdaErrorInfo[]) => {
-			reset();
-			setRenderErrors(e);
-			console.error(e);
-		},
-		[reset]
-	);
-
-	const { renderProgress, videoUrl } = usePollRenderStatus({
+export const RenderProgress = ({ renderId }: Props) => {
+	const { progress, videoUrl } = usePollRenderStatus({
 		renderId,
-		shouldStartPolling: !!renderId,
-		onComplete: reset,
-		onError,
 	});
 
-	if (renderErrors.length > 0) {
+	if (!progress) {
+		return <div>Invoking...</div>;
+	}
+
+	if (progress.errors.length > 0) {
 		return (
 			<div>
 				<h3>Well this is unfortunate but there is an error...</h3>
-				<span>{renderErrors.join(', ')}</span>
+				<span>{progress.errors[0].message}</span>
 			</div>
 		);
 	}
@@ -54,7 +41,9 @@ export const RenderProgress = ({ renderId, reset }: Props) => {
 	return (
 		<div>
 			<h3>Rendering...</h3>
-			{renderProgress && <div>{`${Math.round(renderProgress * 100)}%`}</div>}
+			{progress ? (
+				<div>{`${Math.round(progress.overallProgress * 100)}%`}</div>
+			) : null}
 		</div>
 	);
 };

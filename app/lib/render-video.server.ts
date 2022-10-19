@@ -1,6 +1,7 @@
 import type { AwsRegion } from '@remotion/lambda';
 import { renderMediaOnLambda } from '@remotion/lambda/client';
 import invariant from 'tiny-invariant';
+import type { RenderResponse } from './types';
 
 export const renderVideo = async ({
 	serveUrl,
@@ -12,7 +13,7 @@ export const renderVideo = async ({
 	compositionId: string;
 	inputProps: unknown;
 	outName: string;
-}) => {
+}): Promise<RenderResponse> => {
 	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
 	invariant(functionName, 'REMOTION_AWS_FUNCTION_NAME is not set');
 

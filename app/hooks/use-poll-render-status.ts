@@ -1,68 +1,42 @@
 import { useFetcher } from '@remix-run/react';
-import type { LambdaErrorInfo } from '@remotion/lambda';
-import { useCallback, useEffect, useState } from 'react';
-import type { RenderStatusResponse } from '../lib/types';
-import { checkRenderProgress } from '../lib/check-render-progress';
-import { useInterval } from './use-interval';
+import { useCallback, useEffect, useMemo } from 'react';
+import type { StatusResponse } from '../lib/types';
 
-export function usePollRenderStatus({
-	renderId,
-	shouldStartPolling,
-	onComplete,
-	onError,
-}: {
-	renderId: string;
-	shouldStartPolling: boolean;
-	onComplete: () => void;
-	onError: (e: LambdaErrorInfo[]) => void;
-}) {
-	const [renderProgress, setRenderProgress] = useState<number | undefined>(
-		undefined
-	);
+export function usePollRenderStatus({ renderId }: { renderId: string }) {
+	const { submit, data } = useFetcher<StatusResponse>();
 
-	const renderStatusFetcher = useFetcher<RenderStatusResponse>();
-
-	const [isPolling, setIsPolling] = useState(false);
-
-	const pollingFunction = useCallback(async () => {
-		const progress = await checkRenderProgress(renderStatusFetcher, renderId);
-
-		const errors = progress.errors;
-		if (errors.length > 0) {
-			setIsPolling(false);
-			onError(errors);
-			return;
-		}
-
-		setRenderProgress(progress.overallProgress);
-	}, [renderStatusFetcher, renderId, onError]);
-
-	useInterval({
-		callback: pollingFunction,
-		intervalTime: 1000,
-		isOn: isPolling,
-	});
+	const checkRenderProgress = useCallback(() => {
+		submit(
+			{ renderId: renderId },
+			{
+				method: 'post',
+				action: 'render-status',
+			}
+		);
+	}, [submit, renderId]);
 
 	useEffect(() => {
-		if (!isPolling && shouldStartPolling) {
-			setIsPolling(true);
-			return;
-		}
+		checkRenderProgress();
+	}, [checkRenderProgress]);
 
-		if (renderProgress === 1 && isPolling) {
-			setIsPolling(false);
-			onComplete();
-			return;
-		}
-	}, [isPolling, renderProgress, shouldStartPolling, onComplete]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			checkRenderProgress();
+		}, 2000);
 
-	const videoUrl = renderStatusFetcher.data
-		? renderStatusFetcher.data.outputFile
-		: null;
+		return () => {
+			clearInterval(interval);
+		};
+	}, [checkRenderProgress, renderId]);
 
-	return {
-		renderProgress,
-		isPolling,
-		videoUrl,
-	};
+	const videoUrl = data ? data.outputFile : null;
+
+	const status = useMemo(() => {
+		return {
+			videoUrl,
+			progress: data,
+		};
+	}, [data, videoUrl]);
+
+	return status;
 }
