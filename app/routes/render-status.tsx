@@ -2,29 +2,37 @@ import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import type { AwsRegion } from '@remotion/lambda';
 import { getRenderProgress } from '@remotion/lambda/client';
-import invariant from 'tiny-invariant';
 import type { StatusResponse } from '../lib/types';
 
 export const action: ActionFunction = async ({ request }) => {
 	const body = await request.formData();
 	const renderId = body.get('renderId') as string;
-	invariant(renderId, 'renderId is not defined');
+	if (!renderId) {
+		throw new Response(JSON.stringify({ error: 'No renderId' }), {
+			status: 400,
+		});
+	}
 
 	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
-	invariant(functionName, 'REMOTION_AWS_FUNCTION_NAME is not set');
+	if (!functionName) {
+		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
+	}
 
 	const region = (process.env.REMOTION_AWS_REGION || 'us-east-1') as AwsRegion;
 
 	const bucketName = process.env.REMOTION_AWS_BUCKET_NAME;
-	invariant(bucketName, 'REMOTION_AWS_BUCKET_NAME is not defined');
+	if (!bucketName) {
+		throw new Error('REMOTION_AWS_BUCKET_NAME is not set');
+	}
 
-	const renderProgress = await getRenderProgress({
-		renderId: renderId,
-		bucketName,
-		functionName,
-		region: region,
-	});
-	const { done, overallProgress, errors, outputFile } = renderProgress;
+	const { done, overallProgress, errors, outputFile } = await getRenderProgress(
+		{
+			renderId,
+			bucketName,
+			functionName,
+			region,
+		}
+	);
 	const status: StatusResponse = {
 		renderId,
 		done,

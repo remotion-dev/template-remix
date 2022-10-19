@@ -2442,7 +2442,7 @@
     style-loader "2.0.0"
     webpack "5.74.0"
 
-"@remotion/cli@3.2.32", "@remotion/cli@^3.2.32":
+"@remotion/cli@3.2.32":
   version "3.2.32"
   resolved "https://registry.yarnpkg.com/@remotion/cli/-/cli-3.2.32.tgz#b8e32380e1adfc919774c6a0c15f7000a1e6f31e"
   integrity sha512-fSZVXg/R4dI9aNLTwvkvoy6+MI1Rnr8pLSNiB88cZP1zaI+gZkqcRtG25J/3NEuot9BqOdt82rf1/r9uMrZbWQ==
@@ -2459,14 +2459,14 @@
     semver "7.3.5"
     source-map "0.6.1"
 
-"@remotion/eslint-plugin@^3.0.0":
-  version "3.2.31"
-  resolved "https://registry.yarnpkg.com/@remotion/eslint-plugin/-/eslint-plugin-3.2.31.tgz#172a06ab862813c5235fb2f80f4cc99905813646"
-  integrity sha512-gOFawQ/sgMeGbGwSnlbH/V7QuWiJaYAEk+cJLM2hk/mEALLnVempT6bz2W0IxwudNKJuPcDSg4bU9B/Cr2/tFA==
+"@remotion/eslint-plugin@3.2.32":
+  version "3.2.32"
+  resolved "https://registry.yarnpkg.com/@remotion/eslint-plugin/-/eslint-plugin-3.2.32.tgz#527923f7b094033d3c45d889601b70f539a37c0b"
+  integrity sha512-3XVEB0ikZO/aMk7oqhSZFmNSqlCcA1eRSFDNzhakGuV3vQkR9+X+BUD1CQrE5xI1tAggyv3GNmZoFhiz6m+73g==
   dependencies:
     "@typescript-eslint/utils" "5.19.0"
 
-"@remotion/lambda@^3.2.32":
+"@remotion/lambda@3.2.32":
   version "3.2.32"
   resolved "https://registry.yarnpkg.com/@remotion/lambda/-/lambda-3.2.32.tgz#187c1e8fc1e06c82d599aa7b257decfa16f6cca7"
   integrity sha512-BpsxEl3Q9d0SNUuPkKxbhugHA+LZRaAX+yNf8LO7PslzqeN5VYmBpjMEwwQZF9xr+JZ0sfxmqIyp5z4mEygl1w==
@@ -2493,14 +2493,14 @@
   dependencies:
     remotion "3.2.32"
 
-"@remotion/player@3.2.32", "@remotion/player@^3.2.32":
+"@remotion/player@3.2.32":
   version "3.2.32"
   resolved "https://registry.yarnpkg.com/@remotion/player/-/player-3.2.32.tgz#7f8151ee92e7e86b578a3f091db4562ee8ac5bb9"
   integrity sha512-2a5SJKsnJtUn9Pz7M+ZgMM1VyzsH6upT4bje4bWgXjRwoBfuk+j2nWEI9BJy5UGRJOgK0sOo8JDrjS2zkNbTXQ==
   dependencies:
     remotion "3.2.32"
 
-"@remotion/renderer@3.2.32", "@remotion/renderer@^3.2.32":
+"@remotion/renderer@3.2.32":
   version "3.2.32"
   resolved "https://registry.yarnpkg.com/@remotion/renderer/-/renderer-3.2.32.tgz#152a1938ce74f465d8bbb4bc72ff68ac92a63b35"
   integrity sha512-AsT9Gmqeax8V4QSOx+Di4k2rKAMIuEzrzf791hFGBSt9wmTbIa3plMioB0qFPUOn97uaUrC3BHK43IaIF2nFeA==
@@ -8200,11 +8200,6 @@ tiny-glob@^0.2.9:
   dependencies:
     globalyzer "0.1.0"
     globrex "^0.1.2"
-
-tiny-invariant@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
-  integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
 
 tmp@^0.0.33:
   version "0.0.33"

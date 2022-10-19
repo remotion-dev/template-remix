@@ -1,6 +1,5 @@
 import type { AwsRegion } from '@remotion/lambda';
 import { renderMediaOnLambda } from '@remotion/lambda/client';
-import invariant from 'tiny-invariant';
 import type { RenderResponse } from './types';
 
 export const renderVideo = async ({
@@ -15,7 +14,9 @@ export const renderVideo = async ({
 	outName: string;
 }): Promise<RenderResponse> => {
 	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
-	invariant(functionName, 'REMOTION_AWS_FUNCTION_NAME is not set');
+	if (!functionName) {
+		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
+	}
 
 	const region = (process.env.REMOTION_AWS_REGION || 'us-east-1') as AwsRegion;
 

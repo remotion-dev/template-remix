@@ -3,7 +3,6 @@ import { json } from '@remix-run/node';
 import { useFetcher } from '@remix-run/react';
 import { Player } from '@remotion/player';
 import React, { useCallback, useMemo, useState } from 'react';
-import invariant from 'tiny-invariant';
 import { RenderProgress } from '../components/RenderProgress';
 import { renderVideo } from '../lib/render-video.server';
 import type { LogoAnimationProps } from '../remotion/constants';
@@ -45,10 +44,17 @@ const playerStyle: React.CSSProperties = {
 export const action: ActionFunction = async ({ request }) => {
 	const formData = await request.formData();
 	const personalizedName = formData.get('personalizedName') as string;
-	invariant(personalizedName, 'personalizedName is not set');
+
+	if (!personalizedName) {
+		throw new Response(JSON.stringify({ error: 'No name entered' }), {
+			status: 400,
+		});
+	}
 
 	const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
-	invariant(serveUrl, 'REMOTION_AWS_SERVE_URL is not set');
+	if (!serveUrl) {
+		throw new Error('REMOTION_AWS_SERVE_URL is not set');
+	}
 
 	const inputProps: LogoAnimationProps = {
 		personalizedName,
