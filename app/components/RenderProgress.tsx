@@ -1,4 +1,4 @@
-import { usePollRenderStatus } from 'app/hooks/use-poll-render-status';
+import { usePollRenderStatus } from '../hooks/use-poll-render-status';
 
 interface Props {
 	renderId: string;
