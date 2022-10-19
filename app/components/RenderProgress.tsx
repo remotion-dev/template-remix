@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const RenderProgress = ({ renderId, bucketName }: Props) => {
-	const { progress, videoUrl } = usePollRenderStatus({
+	const { progress } = usePollRenderStatus({
 		renderId,
 		bucketName,
 	});
@@ -24,16 +24,10 @@ export const RenderProgress = ({ renderId, bucketName }: Props) => {
 		);
 	}
 
-	if (videoUrl) {
+	if (progress.outputFile) {
 		return (
 			<div>
-				<a
-					key={`file-${videoUrl}`}
-					href={videoUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="file-download-link"
-				>
+				<a href={progress.outputFile} target="_blank" rel="noopener noreferrer">
 					Download Video
 				</a>
 			</div>
@@ -42,7 +36,7 @@ export const RenderProgress = ({ renderId, bucketName }: Props) => {
 
 	return (
 		<div>
-			<h3>Rendering...</h3>
+			<p>Rendering...</p>
 			{progress ? (
 				<div>{`${Math.round(progress.overallProgress * 100)}%`}</div>
 			) : null}
