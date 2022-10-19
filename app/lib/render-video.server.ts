@@ -26,7 +26,7 @@ export const renderVideo = async ({
 		region,
 		functionName,
 		serveUrl,
-		composition: composition,
+		composition,
 		inputProps,
 		codec: 'h264',
 		outName,

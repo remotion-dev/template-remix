@@ -50,20 +50,21 @@ Follow these steps to set up video rendering:
 
 1. Follow the steps in [Remotion Lambda setup guide](https://www.remotion.dev/docs/lambda/setup).
 2. Rename the `.env.example` file to `.env`.
-3. Fill in the `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` values that you got from the first step.
-4. Run the following to generate a [Serve URL](https://www.remotion.dev/docs/terminology#serve-url) and use it to fill in the `REMOTION_AWS_SERVE_URL` value:
+3. Fill in the `REMOTION_AWS_REGION` with the region that you would like to use, e.g. `us-east-1`.
+4. Fill in the `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` values that you got from the first step.
+5. Run the following to generate a [Serve URL](https://www.remotion.dev/docs/terminology#serve-url) and use it to fill in the `REMOTION_AWS_SERVE_URL` value:
 
 ```
 npm run remotion:deploysite
 ```
 
-5. Run the following [to deploy a Lambda function](https://www.remotion.dev/docs/lambda/cli/functions#deploy) and fill in the function name as `REMOTION_AWS_FUNCTION_NAME`.
+6. Run the following [to deploy a Lambda function](https://www.remotion.dev/docs/lambda/cli/functions#deploy) and fill in the function name as `REMOTION_AWS_FUNCTION_NAME`.
 
 ```
 npm run remotion:deployfunction
 ```
 
-6. Restart the Remix server.
+7. Restart the Remix server.
 
 ## Commands
 
