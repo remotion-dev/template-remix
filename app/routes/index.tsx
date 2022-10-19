@@ -112,7 +112,10 @@ export default function Index() {
 				<h1>Welcome to the Remotion Remix template!</h1>
 				<div>
 					{fetcher.data ? (
-						<RenderProgress renderId={fetcher.data.renderId} />
+						<RenderProgress
+							bucketName={fetcher.data.bucketName}
+							renderId={fetcher.data.renderId}
+						/>
 					) : fetcher.state === 'submitting' ? (
 						<div>Invoking</div>
 					) : (

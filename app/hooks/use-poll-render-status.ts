@@ -2,18 +2,24 @@ import { useFetcher } from '@remix-run/react';
 import { useCallback, useEffect, useMemo } from 'react';
 import type { StatusResponse } from '../lib/types';
 
-export function usePollRenderStatus({ renderId }: { renderId: string }) {
+export function usePollRenderStatus({
+	renderId,
+	bucketName,
+}: {
+	renderId: string;
+	bucketName: string;
+}) {
 	const { submit, data } = useFetcher<StatusResponse>();
 
 	const checkRenderProgress = useCallback(() => {
 		submit(
-			{ renderId: renderId },
+			{ renderId, bucketName },
 			{
 				method: 'post',
 				action: 'progress',
 			}
 		);
-	}, [submit, renderId]);
+	}, [submit, renderId, bucketName]);
 
 	useEffect(() => {
 		checkRenderProgress();

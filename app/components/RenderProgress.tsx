@@ -2,11 +2,13 @@ import { usePollRenderStatus } from '../hooks/use-poll-render-status';
 
 interface Props {
 	renderId: string;
+	bucketName: string;
 }
 
-export const RenderProgress = ({ renderId }: Props) => {
+export const RenderProgress = ({ renderId, bucketName }: Props) => {
 	const { progress, videoUrl } = usePollRenderStatus({
 		renderId,
+		bucketName,
 	});
 
 	if (!progress) {

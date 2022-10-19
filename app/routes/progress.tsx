@@ -7,8 +7,14 @@ import type { StatusResponse } from '../lib/types';
 export const action: ActionFunction = async ({ request }) => {
 	const body = await request.formData();
 	const renderId = body.get('renderId') as string;
+	const bucketName = body.get('bucketName') as string;
 	if (!renderId) {
 		throw new Response(JSON.stringify({ error: 'No renderId' }), {
+			status: 400,
+		});
+	}
+	if (!bucketName) {
+		throw new Response(JSON.stringify({ error: 'No bucketName' }), {
 			status: 400,
 		});
 	}
@@ -21,11 +27,6 @@ export const action: ActionFunction = async ({ request }) => {
 	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
 	if (!region) {
 		throw new Error('REMOTION_AWS_REGION is not set');
-	}
-
-	const bucketName = process.env.REMOTION_AWS_BUCKET_NAME;
-	if (!bucketName) {
-		throw new Error('REMOTION_AWS_BUCKET_NAME is not set');
 	}
 
 	const { done, overallProgress, errors, outputFile } = await getRenderProgress(
