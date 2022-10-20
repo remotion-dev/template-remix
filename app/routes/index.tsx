@@ -63,7 +63,7 @@ export const action: ActionFunction = async ({ request }) => {
 		personalizedName,
 	};
 
-	const renderData: RenderResponse = await renderVideo({
+	const renderData = await renderVideo({
 		serveUrl,
 		composition: COMPOSITION_ID,
 		inputProps,
