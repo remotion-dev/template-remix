@@ -21,7 +21,8 @@
 		"@remotion/lambda": "^3.2.34",
 		"@remotion/player": "^3.2.34",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"remotion": "^3.2.34"
 	},
 	"devDependencies": {
 		"@remix-run/dev": "^1.7.2",
