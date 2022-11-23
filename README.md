@@ -12,8 +12,6 @@
 This is a [Remix starter kit](https://remix.run/docs) with [Remotion](https://remotion.dev), [`@remotion/player`](https://remotion.dev/player) and [`@remotion/lambda`](https://remotion.dev/lambda) built in.  
 It lets you render a video from a Remix app with AWS Lambda.
 
-Check the online version here: [https://remotion-remix-template.vercel.app/](https://remotion-remix-template.vercel.app/)
-
 Here is the output video:
 
 https://user-images.githubusercontent.com/11575645/195991193-f854448a-cdf1-4d61-acb8-ffae44d53b3b.mp4
