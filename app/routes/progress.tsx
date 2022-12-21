@@ -2,6 +2,7 @@ import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import type { AwsRegion } from '@remotion/lambda';
 import { getRenderProgress } from '@remotion/lambda/client';
+import { speculateFunctionName } from 'app/lib/get-function-name';
 import type { StatusResponse } from '../lib/types';
 
 export const action: ActionFunction = async ({ request }) => {
@@ -19,11 +20,6 @@ export const action: ActionFunction = async ({ request }) => {
 		});
 	}
 
-	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
-	if (!functionName) {
-		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
-	}
-
 	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
 	if (!region) {
 		throw new Error('REMOTION_AWS_REGION is not set');
@@ -33,7 +29,7 @@ export const action: ActionFunction = async ({ request }) => {
 		{
 			renderId,
 			bucketName,
-			functionName,
+			functionName: speculateFunctionName(),
 			region,
 		}
 	);
