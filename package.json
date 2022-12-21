@@ -9,24 +9,23 @@
 		"remotion:render": "remotion render LogoAnimation out/logo-animation.mp4",
 		"remotion:upgrade": "remotion upgrade",
 		"remotion:renderlambda": "remotion lambda render remotion-remix-example LogoAnimation out/logo-animation-lambda-rendered.mp4",
-		"remotion:deployfunction": "remotion lambda functions deploy",
-		"remotion:deploysite": "remotion lambda sites create app/remotion/index.ts --site-name=remotion-remix-example"
+		"remotion:deploy": "ts-node app/deploy.ts"
 	},
 	"dependencies": {
 		"@remix-run/node": "^1.7.2",
 		"@remix-run/react": "^1.7.2",
 		"@remix-run/serve": "^1.7.2",
-		"@remotion/cli": "^3.2.34",
-		"@remotion/lambda": "^3.2.34",
-		"@remotion/player": "^3.2.34",
+		"@remotion/cli": "3.3.16",
+		"@remotion/lambda": "3.3.16",
+		"@remotion/player": "3.3.16",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"remotion": "^3.2.34"
+		"remotion": "3.3.16"
 	},
 	"devDependencies": {
 		"@remix-run/dev": "^1.7.2",
 		"@remix-run/eslint-config": "^1.7.2",
-		"@remotion/eslint-plugin": "^3.2.34",
+		"@remotion/eslint-plugin": "3.3.16",
 		"@types/react": "^18.0.15",
 		"@types/react-dom": "^18.0.6",
 		"dotenv": "^16.0.3",

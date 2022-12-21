@@ -50,19 +50,16 @@ Follow these steps to set up video rendering:
 2. Rename the `.env.example` file to `.env`.
 3. Fill in the `REMOTION_AWS_REGION` with the region that you would like to use, e.g. `us-east-1`.
 4. Fill in the `REMOTION_AWS_ACCESS_KEY_ID` and `REMOTION_AWS_SECRET_ACCESS_KEY` values that you got from the first step.
-5. Run the following to generate a [Serve URL](https://www.remotion.dev/docs/terminology#serve-url) and use it to fill in the `REMOTION_AWS_SERVE_URL` value:
+
+5. Run the following to deploy your Lambda function and Remotion site:
 
 ```
-npm run remotion:deploysite
+npm run remotion:deploy
 ```
 
-6. Run the following [to deploy a Lambda function](https://www.remotion.dev/docs/lambda/cli/functions#deploy) and fill in the function name as `REMOTION_AWS_FUNCTION_NAME`.
+> Rerun this command whenever you have upgraded to a new Remotion version.
 
-```
-npm run remotion:deployfunction
-```
-
-7. Restart the Remix server.
+6. Restart the Remix server.
 
 ## Commands
 
@@ -108,22 +105,15 @@ Render the example video on AWS Lambda:
 npm run remotion:renderlambda
 ```
 
-(Re-)Deploy the AWS lambda function:
+Deploy/Update the Remotion video on S3 and the Lambda function:
 
 ```
-npm run remotion:deployfunction
-```
-
-Deploy/Update the Remotion video on S3:
-
-```
-npm run remotion:deploysite
+npm run remotion:deploy
 ```
 
 ## Upgrading Remotion
 
 When upgrading Remotion to a newer version, you will need to redeploy your function and update your site using the commands above.  
-Afterwards, update the environment variables `REMOTION_AWS_SERVE_URL` and `REMOTION_AWS_FUNCTION_NAME`.  
 If your functions or sites are already used in production, make sure to not overwrite them - [read here](https://www.remotion.dev/docs/lambda/upgrading) for more details about upgrading.
 
 ## Docs

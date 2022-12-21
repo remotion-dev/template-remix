@@ -6,3 +6,5 @@ node_modules
 .env
 /out
 .nvmrc
+
+.DS_Store
