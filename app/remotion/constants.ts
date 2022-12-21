@@ -1,4 +1,4 @@
-import { VERSION } from 'remotion/version';
+import { VERSION } from 'remotion';
 
 export const COMPOSITION_FPS = 30;
 export const COMPOSITION_DURATION_IN_FRAMES = 7 * COMPOSITION_FPS;

@@ -35,7 +35,7 @@ export const renderVideo = async ({
 	return {
 		renderId,
 		bucketName,
-		functionName,
+		functionName: speculateFunctionName(),
 		region,
 	};
 };

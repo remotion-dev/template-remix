@@ -28,7 +28,7 @@ const run = async () => {
 	const { serveUrl } = await deploySite({
 		siteName: SITE_NAME,
 		bucketName,
-		entryPoint: path.join(process.cwd(), 'remotion/index.ts'),
+		entryPoint: path.join(process.cwd(), 'app/remotion/index.ts'),
 		region,
 	});
 
