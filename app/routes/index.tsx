@@ -6,6 +6,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { RenderProgress } from '../components/render-progress';
 import { renderVideo } from '../lib/render-video.server';
 import type { LogoAnimationProps } from '../remotion/constants';
+import { SITE_NAME } from '../remotion/constants';
 import {
 	COMPOSITION_DURATION_IN_FRAMES,
 	COMPOSITION_FPS,
@@ -54,17 +55,12 @@ export const action: ActionFunction = async ({ request }) => {
 		});
 	}
 
-	const serveUrl = process.env.REMOTION_AWS_SERVE_URL;
-	if (!serveUrl) {
-		throw new Error('REMOTION_AWS_SERVE_URL is not set');
-	}
-
 	const inputProps: LogoAnimationProps = {
 		personalizedName,
 	};
 
-	const renderData: RenderResponse = await renderVideo({
-		serveUrl,
+	const renderData = await renderVideo({
+		serveUrl: SITE_NAME,
 		composition: COMPOSITION_ID,
 		inputProps,
 		outName: `logo-animation.mp4`,

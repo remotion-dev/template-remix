@@ -8,7 +8,7 @@ import {
 } from './constants';
 import { LogoAnimation } from './logo-animation';
 
-export const RemotionVideo = () => {
+export const RemotionRoot = () => {
 	return (
 		<>
 			<Composition

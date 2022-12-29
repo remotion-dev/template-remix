@@ -1,5 +1,6 @@
 import type { AwsRegion } from '@remotion/lambda';
 import { renderMediaOnLambda } from '@remotion/lambda/client';
+import { speculateFunctionName } from './get-function-name';
 import type { RenderResponse } from './types';
 
 export const renderVideo = async ({
@@ -13,11 +14,6 @@ export const renderVideo = async ({
 	inputProps: unknown;
 	outName: string;
 }): Promise<RenderResponse> => {
-	const functionName = process.env.REMOTION_AWS_FUNCTION_NAME;
-	if (!functionName) {
-		throw new Error('REMOTION_AWS_FUNCTION_NAME is not set');
-	}
-
 	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;
 	if (!region) {
 		throw new Error('REMOTION_AWS_REGION is not set');
@@ -25,7 +21,7 @@ export const renderVideo = async ({
 
 	const { renderId, bucketName } = await renderMediaOnLambda({
 		region,
-		functionName,
+		functionName: speculateFunctionName(),
 		serveUrl,
 		composition,
 		inputProps,
@@ -39,7 +35,7 @@ export const renderVideo = async ({
 	return {
 		renderId,
 		bucketName,
-		functionName,
+		functionName: speculateFunctionName(),
 		region,
 	};
 };
