@@ -4,6 +4,6 @@
 
 import { Config } from 'remotion';
 
-Config.Rendering.setImageFormat('jpeg');
-Config.Output.setOverwriteOutput(true);
-Config.Bundling.setEntryPoint('app/remotion/index.ts');
+Config.setImageFormat('jpeg');
+Config.setOverwriteOutput(true);
+Config.setEntryPoint('app/remotion/index.ts');
