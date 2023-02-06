@@ -87,7 +87,7 @@ Start the Remotion preview:
 npm run remotion:preview
 ```
 
-Render the example video localle:
+Render the example video locally:
 
 ```
 npm run remotion:render
