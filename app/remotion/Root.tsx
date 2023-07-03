@@ -18,6 +18,7 @@ export const RemotionRoot = () => {
 				fps={COMPOSITION_FPS}
 				width={COMPOSITION_WIDTH}
 				height={COMPOSITION_HEIGHT}
+				defaultProps={{ personalizedName: 'stranger' }}
 			/>
 		</>
 	);

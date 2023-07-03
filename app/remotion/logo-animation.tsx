@@ -20,10 +20,12 @@ import { RemotionPersonToFusion } from './components/remotion-logo/remotion-pers
 import type { LogoAnimationProps } from './constants';
 import { loadFonts } from './load-fonts';
 
-export const LogoAnimation = ({ personalizedName }: LogoAnimationProps) => {
+export const LogoAnimation: React.FC<LogoAnimationProps> = (
+	logoAnimationProps
+) => {
 	const { fps } = useVideoConfig();
 	const frame = useCurrentFrame();
-
+	const { personalizedName } = logoAnimationProps;
 	useEffect(() => {
 		loadFonts();
 	}, []);

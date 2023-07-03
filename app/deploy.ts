@@ -1,7 +1,9 @@
 import type { AwsRegion } from '@remotion/lambda';
-import { deploySite } from '@remotion/lambda';
-import { getOrCreateBucket } from '@remotion/lambda';
-import { deployFunction } from '@remotion/lambda';
+import {
+	deploySite,
+	getOrCreateBucket,
+	deployFunction,
+} from '@remotion/lambda';
 import dotenv from 'dotenv';
 import path from 'path';
 import { RAM, TIMEOUT, SITE_NAME } from './remotion/constants';
@@ -14,7 +16,6 @@ const run = async () => {
 		throw new Error('REMOTION_AWS_REGION is not set');
 	}
 	const { alreadyExisted, functionName } = await deployFunction({
-		architecture: 'arm64',
 		createCloudWatchLogGroup: true,
 		memorySizeInMb: RAM,
 		region,
