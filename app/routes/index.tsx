@@ -6,8 +6,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { RenderProgress } from '../components/render-progress';
 import { renderVideo } from '../lib/render-video.server';
 import type { LogoAnimationProps } from '../remotion/constants';
-import { SITE_NAME } from '../remotion/constants';
 import {
+	SITE_NAME,
 	COMPOSITION_DURATION_IN_FRAMES,
 	COMPOSITION_FPS,
 	COMPOSITION_HEIGHT,

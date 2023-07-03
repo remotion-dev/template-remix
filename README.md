@@ -39,7 +39,7 @@ npm run dev
 Start the Remotion Preview (the editor interface) using:
 
 ```
-npm run remotion:preview
+npm run remotion:studio
 ```
 
 ## Render videos with AWS Lambda
@@ -131,4 +131,4 @@ Found an issue with Remotion? [File an issue here](https://remotion.dev/issue).
 
 ## License
 
-Notice that for some entities a Remotion company license is needed. Read [the terms here](https://remotion.dev/license).
+Note that for some entities a Remotion company license is needed. Read [the terms here](https://remotion.dev/license).

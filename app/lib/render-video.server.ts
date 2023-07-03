@@ -2,6 +2,7 @@ import type { AwsRegion } from '@remotion/lambda';
 import { renderMediaOnLambda } from '@remotion/lambda/client';
 import { speculateFunctionName } from './get-function-name';
 import type { RenderResponse } from './types';
+import type { LogoAnimationProps } from 'app/remotion/constants';
 
 export const renderVideo = async ({
 	serveUrl,
@@ -11,7 +12,7 @@ export const renderVideo = async ({
 }: {
 	serveUrl: string;
 	composition: string;
-	inputProps: unknown;
+	inputProps: LogoAnimationProps;
 	outName: string;
 }): Promise<RenderResponse> => {
 	const region = process.env.REMOTION_AWS_REGION as AwsRegion | undefined;

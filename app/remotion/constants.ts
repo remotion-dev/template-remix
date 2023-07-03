@@ -10,6 +10,6 @@ export const DISK = 2048;
 export const TIMEOUT = 240;
 export const SITE_NAME = 'remotion-remix-example-' + VERSION;
 
-export interface LogoAnimationProps {
+export type LogoAnimationProps = {
 	personalizedName: string;
-}
+};
