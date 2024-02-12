@@ -8,12 +8,13 @@ import {
 	ScrollRestoration,
 } from '@remix-run/react';
 
-export const meta: MetaFunction = () => ({
-	charset: 'utf-8',
-	title: 'Remotion + Remix',
-	viewport: 'width=device-width,initial-scale=1',
-});
-
+export const meta: MetaFunction = () => {
+  return [
+    { charset: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width,initial-scale=1' },
+    { property: 'og:title', content: 'Remotion + Remix' },
+  ];
+};
 export default function App() {
 	return (
 		<html lang="en">
