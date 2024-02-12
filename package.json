@@ -1,5 +1,4 @@
 {
-	"name": "export-as-video",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -27,19 +26,19 @@
 		"@remix-run/react": "^2.6.0",
 		"@remix-run/serve": "^2.6.0",
 		"@remix-run/vercel": "^1.9.0",
-		"@remotion/cli": "4.0.109",
-		"@remotion/lambda": "4.0.109",
-		"@remotion/player": "4.0.109",
+		"@remotion/cli": "^4.0.0",
+		"@remotion/lambda": "^4.0.0",
+		"@remotion/player": "^4.0.0",
 		"@vercel/remix": "2.5.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"remotion": "4.0.109",
+		"remotion": "^4.0.0",
 		"isbot": "^4.1.0"
 	},
 	"devDependencies": {
 		"@remix-run/dev": "v2.6.0",
 		"@remix-run/eslint-config": "v2.6.0",
-		"@remotion/eslint-plugin": "4.0.109",
+		"@remotion/eslint-plugin": "^4.0.0",
 		"@types/node": ">= 18",
 		"@types/react": "^18.2.20",
 		"@types/react-dom": "^18.2.7",
