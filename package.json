@@ -1,57 +1,48 @@
 {
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "remix build",
-		"dev": "remix dev --manual",
-		"lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-		"start": "remix-serve ./build/index.js",
-		"typecheck": "tsc",
-		"test": "eslint app --ext ts,tsx,js,jsx && tsc",
-		"remotion:studio": "remotion studio",
-		"remotion:render": "remotion render LogoAnimation out/logo-animation.mp4",
-		"remotion:upgrade": "remotion upgrade",
-		"remotion:renderlambda": "remotion lambda render remotion-remix-example LogoAnimation out/logo-animation-lambda-rendered.mp4",
-		"remotion:deploy": "ts-node app/deploy.ts"
-	},
-	"engines": {
-		"node": ">=18"
-	},
-	"sideEffects": [
-		"*.css"
-	],
-	"dependencies": {
-		"@remix-run/css-bundle": "^2.6.0",
-		"@remix-run/node": "^2.6.0",
-		"@remix-run/react": "^2.6.0",
-		"@remix-run/serve": "^2.6.0",
-		"@remix-run/vercel": "^1.9.0",
-		"@remotion/cli": "^4.0.0",
-		"@remotion/lambda": "^4.0.0",
-		"@remotion/player": "^4.0.0",
-		"@vercel/remix": "2.5.1",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"remotion": "^4.0.0",
-		"isbot": "^4.1.0"
-	},
-	"devDependencies": {
-		"@remix-run/dev": "v2.6.0",
-		"@remix-run/eslint-config": "v2.6.0",
-		"@remotion/eslint-plugin": "^4.0.0",
-		"@types/node": ">= 18",
-		"@types/react": "^18.2.20",
-		"@types/react-dom": "^18.2.7",
-		"dotenv": "^16.0.3",
-		"eslint": "^8.38.0",
-		"prettier": "^3.2.5",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.1.6",
-		"@typescript-eslint/eslint-plugin": "^6.7.4",
-		"eslint-import-resolver-typescript": "^3.6.1",
-		"eslint-plugin-import": "^2.28.1",
-		"eslint-plugin-jsx-a11y": "^6.7.1",
-		"eslint-plugin-react": "^7.33.2",
-		"eslint-plugin-react-hooks": "^4.6.0"
-	}
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev --manual",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "remix-serve ./build/index.js",
+    "typecheck": "tsc",
+    "test": "eslint app --ext ts,tsx,js,jsx && tsc",
+    "remotion:studio": "remotion studio",
+    "remotion:render": "remotion render LogoAnimation out/logo-animation.mp4",
+    "remotion:upgrade": "remotion upgrade",
+    "remotion:renderlambda": "remotion lambda render remotion-remix-example LogoAnimation out/logo-animation-lambda-rendered.mp4",
+    "remotion:deploy": "ts-node app/deploy.ts"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "dependencies": {
+    "@remix-run/css-bundle": "2.12.1",
+    "@remix-run/node": "2.12.1",
+    "@remix-run/react": "2.12.1",
+    "@remix-run/serve": "2.12.1",
+    "@remix-run/vercel": "1.19.3",
+    "@remotion/cli": "^4.0.0",
+    "@remotion/lambda": "^4.0.0",
+    "@remotion/player": "^4.0.0",
+    "@vercel/remix": "2.5.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "^4.0.0",
+    "isbot": "4.1.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "2.12.1",
+    "@remix-run/eslint-config": "2.12.1",
+    "@remotion/eslint-plugin": "^4.0.0",
+    "@types/node": "20.14.11",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "dotenv": "16.0.3",
+    "eslint": "8.56.0",
+    "prettier": "3.2.5",
+    "ts-node": "10.9.1",
+    "typescript": "5.3.3"
+  }
 }
